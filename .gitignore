@@ -1,0 +1,16 @@
+.env
+.env.local
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+backend/.env
+frontend/.env
+frontend/node_modules/
+frontend/dist/
+backend/.coverage
+backend/htmlcov/
+.DS_Store
+Thumbs.db

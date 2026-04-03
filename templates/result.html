@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            margin: 40px auto;
+            width: 60%;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        .section {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 80%;
+            height: 20px;
+            background: #ddd;
+            margin: 10px auto;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: #28a745;
+            color: white;
+            text-align: center;
+            line-height: 20px;
+            font-size: 12px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #e9ecef;
+            margin: 5px;
+            padding: 8px;
+            border-radius: 6px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: white;
+            background: #007bff;
+            padding: 10px 20px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>Recommended Career</h1>
+    <h2>{{ prediction }}</h2>
+
+    <!-- Confidence -->
+    <div class="section">
+        <strong>Confidence:</strong> {{ confidence }}%
+    </div>
+
+    <!-- Skill Match -->
+    <div class="section">
+        <strong>Skill Match:</strong> {{ match }}%
+
+        <div class="progress-bar">
+            <div class="progress" style="width: {{ match }}%;">
+                {{ match }}%
+            </div>
+        </div>
+    </div>
+
+    <!-- Salary -->
+    <div class="section">
+        <strong>Salary:</strong> {{ salary }}
+    </div>
+
+    <!-- Description -->
+    <div class="section">
+        <strong>Description:</strong> {{ description }}
+    </div>
+
+    <!-- Required Skills -->
+    <div class="section">
+        <strong>Required Skills:</strong>
+        <ul>
+        {% for skill in skills %}
+            <li>{{ skill }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Missing Skills -->
+    <div class="section">
+        <strong>Missing Skills:</strong>
+        <ul>
+        {% for skill in missing_skills %}
+            <li>{{ skill }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Suggestions -->
+    <div class="section">
+        <strong>Suggestions:</strong>
+        <ul>
+        {% for s in suggestions %}
+            <li>{{ s }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Chart -->
+    <div class="section">
+        <strong>Career Confidence Chart</strong><br>
+        <canvas id="chart" width="250" height="250"></canvas>
+    </div>
+
+    <a href="/">Go Back</a>
+
+</div>
+
+<script>
+const labels = {{ chart_labels | tojson }};
+const data = {{ chart_values | tojson }};
+
+const ctx = document.getElementById('chart').getContext('2d');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Prediction %',
+            data: data
+        }]
+    },
+    options: {
+        responsive: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>

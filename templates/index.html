@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Career Navigator</title>
+</head>
+
+<body>
+
+<h1>AI Career Navigator</h1>
+
+<form action="/predict" method="post">
+
+    <label>Select Skills:</label><br><br>
+
+    <input type="checkbox" name="skills" value="python"> Python<br>
+    <input type="checkbox" name="skills" value="java"> Java<br>
+    <input type="checkbox" name="skills" value="sql"> SQL<br>
+    <input type="checkbox" name="skills" value="excel"> Excel<br>
+    <input type="checkbox" name="skills" value="communication"> Communication<br>
+    <input type="checkbox" name="skills" value="design"> Design<br>
+    <input type="checkbox" name="skills" value="marketing"> Marketing<br>
+    <input type="checkbox" name="skills" value="statistics"> Statistics<br>
+    <input type="checkbox" name="skills" value="networking"> Networking<br>
+    <input type="checkbox" name="skills" value="cloud"> Cloud<br><br>
+
+    <label>Interest:</label>
+    <select name="interest">
+        <option value="tech">Tech</option>
+        <option value="design">Design</option>
+        <option value="business">Business</option>
+    </select><br><br>
+
+    <label>Education:</label>
+    <select name="education">
+        <option value="ug">UG</option>
+        <option value="pg">PG</option>
+    </select><br><br>
+
+    <button type="submit">Predict</button>
+
+</form>
+
+</body>
+</html>
