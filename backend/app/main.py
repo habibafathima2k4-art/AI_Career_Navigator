@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes import admin, assessments, auth, careers, health, resources, skills
 from app.core.config import settings
+from app.db.bootstrap import bootstrap_database
 
 app = FastAPI(
     title=settings.app_name,
@@ -33,6 +34,18 @@ app.include_router(
     prefix=f"{settings.api_prefix}/assessments",
     tags=["assessments"],
 )
+
+
+@app.on_event("startup")
+def on_startup() -> None:
+    if not settings.auto_init_on_startup:
+        return
+
+    bootstrap_database(
+        admin_name=settings.bootstrap_admin_name,
+        admin_email=settings.bootstrap_admin_email,
+        admin_password=settings.bootstrap_admin_password,
+    )
 
 
 @app.get("/", tags=["root"])
