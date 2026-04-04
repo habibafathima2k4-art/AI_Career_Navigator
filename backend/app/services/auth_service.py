@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from app.core.security import create_access_token, hash_password, verify_password
 from app.models.enums import RoleEnum
 from app.models.user import User
-from app.schemas.auth import TokenResponse, UserLogin, UserRegister
+from app.schemas.auth import PasswordChangeRequest, TokenResponse, UserLogin, UserRegister
 
 
 def register_user(db: Session, payload: UserRegister) -> User:
@@ -37,3 +37,13 @@ def authenticate_user(db: Session, payload: UserLogin) -> TokenResponse:
 
 def get_user_by_id(db: Session, user_id: int) -> User | None:
     return db.get(User, user_id)
+
+
+def change_password(db: Session, user: User, payload: PasswordChangeRequest) -> User:
+    if not verify_password(payload.current_password, user.password_hash):
+        raise ValueError("Current password is incorrect.")
+
+    user.password_hash = hash_password(payload.new_password)
+    db.commit()
+    db.refresh(user)
+    return user
