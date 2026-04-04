@@ -49,12 +49,11 @@ export default function HomePage() {
       </section>
 
       <section className="section" id="roadmap">
-        <p className="section-label">Next build targets</p>
+        <p className="section-label">Platform status</p>
         <div className="roadmap-card">
           <p>
-            The current build already includes auth, assessments, recommendations,
-            history, resources, analytics, and admin CRUD. The next phase is product
-            polish and deployment readiness.
+            The platform is now live with auth, assessments, recommendations,
+            private history, roadmap resources, analytics, and admin CRUD.
           </p>
         </div>
       </section>
