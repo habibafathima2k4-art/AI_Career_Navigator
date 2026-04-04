@@ -240,14 +240,14 @@ def admin_delete_resource(
     return {"message": "Resource deleted."}
 
 
-@router.post("/users/reset-password", response_model=UserResponse)
+@router.post("/users/reset-password")
 def admin_reset_user_password(
     payload: AdminPasswordResetRequest,
     db: Session = Depends(get_db),
     _: User = Depends(require_admin),
-) -> UserResponse:
+) -> dict[str, str]:
     try:
-        user = reset_user_password(db, payload)
+        reset_user_password(db, payload)
     except ValueError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
-    return UserResponse.model_validate(user)
+    return {"message": "Password reset successfully."}
