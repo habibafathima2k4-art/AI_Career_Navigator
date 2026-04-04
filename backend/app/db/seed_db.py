@@ -75,7 +75,19 @@ def seed_db() -> None:
                 created_links += 1
 
             for resource_entry in career_entry["resources"]:
-                if resource_entry["title"] in existing_resource_titles:
+                existing_resource = next(
+                    (
+                        resource
+                        for resource in career.learning_resources
+                        if resource.title == resource_entry["title"]
+                    ),
+                    None,
+                )
+                if existing_resource is not None:
+                    existing_resource.resource_type = resource_entry["resource_type"]
+                    existing_resource.url = resource_entry["url"]
+                    existing_resource.provider = resource_entry["provider"]
+                    existing_resource.difficulty_level = resource_entry["difficulty_level"]
                     continue
                 career.learning_resources.append(LearningResource(**resource_entry))
                 created_resources += 1
