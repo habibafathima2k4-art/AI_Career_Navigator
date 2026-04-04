@@ -136,7 +136,7 @@ export default function ResultsPage() {
                   <div>
                     <h2>{resource.title}</h2>
                     <p>
-                      {resource.provider || "Learning resource"} ·{" "}
+                      {resource.provider || "Learning resource"} |{" "}
                       {resource.difficulty_level || "all levels"}
                     </p>
                   </div>
@@ -185,8 +185,8 @@ export default function ResultsPage() {
           <p className="section-label">Next move</p>
           <div className="roadmap-card">
             <p>
-              The current engine now ranks paths and surfaces starter resources. Next we
-              can add saved history, user accounts, and progress tracking.
+              Your results are saved. Revisit past assessments, explore roadmap
+              resources, and keep building toward the career path that fits you best.
             </p>
           </div>
         </section>
