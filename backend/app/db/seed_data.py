@@ -90,6 +90,26 @@ SKILLS = [
         "category": SkillCategoryEnum.DOMAIN,
         "description": "Analyze user behavior, competitors, and market signals for decisions.",
     },
+    {
+        "name": "Git",
+        "category": SkillCategoryEnum.TECHNICAL,
+        "description": "Track code changes, collaborate safely, and manage version history.",
+    },
+    {
+        "name": "JavaScript",
+        "category": SkillCategoryEnum.TECHNICAL,
+        "description": "Build interactive web experiences and frontend application logic.",
+    },
+    {
+        "name": "Business Analysis",
+        "category": SkillCategoryEnum.DOMAIN,
+        "description": "Translate business goals into requirements, workflows, and measurable outcomes.",
+    },
+    {
+        "name": "A/B Testing",
+        "category": SkillCategoryEnum.DOMAIN,
+        "description": "Compare experiments and interpret results to improve product decisions.",
+    },
 ]
 
 
