@@ -47,8 +47,17 @@ def ensure_admin_user(
             session.commit()
             return
 
+        updated = False
+
         if user.role != RoleEnum.ADMIN:
             user.role = RoleEnum.ADMIN
+            updated = True
+
+        user.full_name = full_name
+        user.password_hash = hash_password(password)
+        updated = True
+
+        if updated:
             session.commit()
 
 
