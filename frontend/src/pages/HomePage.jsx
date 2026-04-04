@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { getApiBaseUrl } from "../lib/api";
 
 const phases = [
@@ -8,6 +9,19 @@ const phases = [
 ];
 
 export default function HomePage() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) {
+      return;
+    }
+
+    const target = document.querySelector(location.hash);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [location.hash]);
+
   return (
     <div className="page">
       <section className="hero">

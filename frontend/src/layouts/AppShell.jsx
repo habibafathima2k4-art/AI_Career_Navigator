@@ -14,8 +14,8 @@ export default function AppShell() {
           <Link to="/admin">Admin</Link>
           <Link to="/assessment">Assessment</Link>
           <Link to="/history">History</Link>
-          <a href="#how-it-works">How it works</a>
-          <a href="#roadmap">Roadmap</a>
+          <Link to={{ pathname: "/", hash: "#how-it-works" }}>How it works</Link>
+          <Link to={{ pathname: "/", hash: "#roadmap" }}>Roadmap</Link>
         </nav>
         <div className="auth-nav">
           {isAuthenticated ? (
