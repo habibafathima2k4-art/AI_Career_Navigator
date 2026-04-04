@@ -35,6 +35,13 @@ const proficiencyOptions = [
   { value: "advanced", label: "Advanced" }
 ];
 
+const categoryLabels = {
+  technical: "Technical",
+  tool: "Tools",
+  domain: "Domain",
+  soft: "Soft skills"
+};
+
 function normalizeError(error) {
   if (error instanceof Error) {
     return error.message;
@@ -48,6 +55,7 @@ export default function AssessmentPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [skillQuery, setSkillQuery] = useState("");
   const [form, setForm] = useState({
     interest_area: "data",
     education_level: "ug",
@@ -153,6 +161,23 @@ export default function AssessmentPage() {
     }
   }
 
+  const normalizedQuery = skillQuery.trim().toLowerCase();
+  const visibleSkills = skills.filter((skill) => {
+    if (!normalizedQuery) {
+      return true;
+    }
+    const haystack = `${skill.name} ${skill.description || ""} ${skill.category}`.toLowerCase();
+    return haystack.includes(normalizedQuery);
+  });
+  const groupedSkills = visibleSkills.reduce((groups, skill) => {
+    const key = skill.category || "other";
+    if (!groups[key]) {
+      groups[key] = [];
+    }
+    groups[key].push(skill);
+    return groups;
+  }, {});
+
   return (
     <div className="page">
       <section className="section-header">
@@ -238,70 +263,119 @@ export default function AssessmentPage() {
             <div>
               <p className="section-label">Skill inventory</p>
               <h2>Choose the skills you already have</h2>
+              <p className="skills-helper">
+                Search by skill name, then tap cards to add them to your profile.
+              </p>
             </div>
             {loading ? <span className="status-chip">Loading skills...</span> : null}
           </div>
 
-          <div className="skills-grid">
-            {skills.map((skill) => {
-              const selected = form.selectedSkills[skill.id];
-              return (
-                <article
-                  className={`skill-card ${selected ? "skill-card-active" : ""}`}
-                  key={skill.id}
-                >
-                  <label className="skill-toggle">
-                    <input
-                      type="checkbox"
-                      checked={Boolean(selected)}
-                      onChange={() => toggleSkill(skill.id)}
-                    />
-                    <div>
-                      <strong>{skill.name}</strong>
-                      <p>{skill.description}</p>
-                    </div>
-                  </label>
-
-                  {selected ? (
-                    <div className="skill-meta">
-                      <label className="field">
-                        <span>Proficiency</span>
-                        <select
-                          value={selected.proficiency_level}
-                          onChange={(event) =>
-                            handleSkillMetaChange(skill.id, "proficiency_level", event.target.value)
-                          }
-                        >
-                          {proficiencyOptions.map((option) => (
-                            <option key={option.value} value={option.value}>
-                              {option.label}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-
-                      <label className="field">
-                        <span>Years</span>
-                        <input
-                          type="number"
-                          min="0"
-                          max="50"
-                          value={selected.years_of_experience}
-                          onChange={(event) =>
-                            handleSkillMetaChange(
-                              skill.id,
-                              "years_of_experience",
-                              event.target.value
-                            )
-                          }
-                        />
-                      </label>
-                    </div>
-                  ) : null}
-                </article>
-              );
-            })}
+          <div className="skill-toolbar">
+            <label className="field skill-search">
+              <span>Search skills</span>
+              <input
+                placeholder="Python, analytics, design..."
+                value={skillQuery}
+                onChange={(event) => setSkillQuery(event.target.value)}
+              />
+            </label>
+            <div className="skill-summary">
+              <strong>{Object.keys(form.selectedSkills).length}</strong>
+              <span>selected</span>
+            </div>
           </div>
+
+          {Object.keys(groupedSkills).length ? (
+            <div className="skill-groups">
+              {Object.entries(groupedSkills).map(([category, categorySkills]) => (
+                <section className="skill-group" key={category}>
+                  <div className="skill-group-header">
+                    <p className="skill-group-label">
+                      {categoryLabels[category] || category}
+                    </p>
+                    <span>{categorySkills.length} skills</span>
+                  </div>
+
+                  <div className="skills-grid">
+                    {categorySkills.map((skill) => {
+                      const selected = form.selectedSkills[skill.id];
+                      return (
+                        <article
+                          className={`skill-card ${selected ? "skill-card-active" : ""}`}
+                          key={skill.id}
+                        >
+                          <div className="skill-card-top">
+                            <span className="skill-badge">
+                              {categoryLabels[skill.category] || skill.category}
+                            </span>
+                            <button
+                              className="skill-select-button"
+                              type="button"
+                              onClick={() => toggleSkill(skill.id)}
+                            >
+                              {selected ? "Selected" : "Add skill"}
+                            </button>
+                          </div>
+
+                          <div className="skill-body">
+                            <strong>{skill.name}</strong>
+                            <p>{skill.description}</p>
+                          </div>
+
+                          {selected ? (
+                            <div className="skill-meta">
+                              <label className="field">
+                                <span>Proficiency</span>
+                                <select
+                                  value={selected.proficiency_level}
+                                  onChange={(event) =>
+                                    handleSkillMetaChange(
+                                      skill.id,
+                                      "proficiency_level",
+                                      event.target.value
+                                    )
+                                  }
+                                >
+                                  {proficiencyOptions.map((option) => (
+                                    <option key={option.value} value={option.value}>
+                                      {option.label}
+                                    </option>
+                                  ))}
+                                </select>
+                              </label>
+
+                              <label className="field">
+                                <span>Years</span>
+                                <input
+                                  type="number"
+                                  min="0"
+                                  max="50"
+                                  value={selected.years_of_experience}
+                                  onChange={(event) =>
+                                    handleSkillMetaChange(
+                                      skill.id,
+                                      "years_of_experience",
+                                      event.target.value
+                                    )
+                                  }
+                                />
+                              </label>
+                            </div>
+                          ) : null}
+                        </article>
+                      );
+                    })}
+                  </div>
+                </section>
+              ))}
+            </div>
+          ) : (
+            <div className="empty-state">
+              <p className="eyebrow">No matches</p>
+              <h2 className="page-title">No skills match that search.</h2>
+              <p className="page-copy">Try a broader keyword like data, design, or python.</p>
+            </div>
+          )}
         </section>
 
         {error ? <p className="error-banner">{error}</p> : null}

@@ -40,6 +40,56 @@ SKILLS = [
         "category": SkillCategoryEnum.DOMAIN,
         "description": "Understand users, business goals, and product tradeoffs.",
     },
+    {
+        "name": "Power BI",
+        "category": SkillCategoryEnum.TOOL,
+        "description": "Build interactive business dashboards and share data stories clearly.",
+    },
+    {
+        "name": "Tableau",
+        "category": SkillCategoryEnum.TOOL,
+        "description": "Turn datasets into visual dashboards and exploratory reports.",
+    },
+    {
+        "name": "Data Visualization",
+        "category": SkillCategoryEnum.DOMAIN,
+        "description": "Present insights through charts, storytelling, and visual structure.",
+    },
+    {
+        "name": "Prompt Engineering",
+        "category": SkillCategoryEnum.DOMAIN,
+        "description": "Design reliable prompts and workflows for LLM-powered applications.",
+    },
+    {
+        "name": "API Development",
+        "category": SkillCategoryEnum.TECHNICAL,
+        "description": "Build and integrate backend APIs for products and automations.",
+    },
+    {
+        "name": "Cloud Basics",
+        "category": SkillCategoryEnum.TECHNICAL,
+        "description": "Understand deployment, hosting, and cloud service fundamentals.",
+    },
+    {
+        "name": "UI/UX Design",
+        "category": SkillCategoryEnum.DOMAIN,
+        "description": "Shape user flows, interfaces, and interaction patterns with empathy.",
+    },
+    {
+        "name": "Leadership",
+        "category": SkillCategoryEnum.SOFT,
+        "description": "Guide teams, align priorities, and move collaborative work forward.",
+    },
+    {
+        "name": "Problem Solving",
+        "category": SkillCategoryEnum.SOFT,
+        "description": "Break down complex challenges and move toward practical solutions.",
+    },
+    {
+        "name": "Market Research",
+        "category": SkillCategoryEnum.DOMAIN,
+        "description": "Analyze user behavior, competitors, and market signals for decisions.",
+    },
 ]
 
 

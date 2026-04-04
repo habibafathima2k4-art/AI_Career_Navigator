@@ -3,7 +3,7 @@ from sqlalchemy import select
 from app.core.database import SessionLocal
 from app.core.security import hash_password
 from app.db.init_db import init_db
-from app.db.seed_data import build_seed_entities
+from app.db.seed_db import seed_db
 from app.models.career import Career
 from app.models.enums import RoleEnum
 from app.models.skill import Skill
@@ -16,12 +16,10 @@ def seed_if_empty() -> None:
         has_skill = session.scalar(select(Skill.id).limit(1))
 
         if has_career or has_skill:
+            seed_db()
             return
 
-        skills, careers = build_seed_entities()
-        session.add_all(skills)
-        session.add_all(careers)
-        session.commit()
+    seed_db()
 
 
 def ensure_admin_user(

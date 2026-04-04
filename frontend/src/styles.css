@@ -315,11 +315,10 @@ button:disabled {
 
 .skills-section {
   display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .skills-header {
-  align-items: center;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
@@ -327,6 +326,77 @@ button:disabled {
 
 .skills-header h2 {
   margin: 0;
+}
+
+.skills-helper {
+  color: var(--text-soft);
+  margin: 0.45rem 0 0;
+  max-width: 52ch;
+}
+
+.skill-toolbar {
+  align-items: end;
+  background: rgba(7, 18, 32, 0.42);
+  border: 1px solid var(--stroke);
+  border-radius: 24px;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 1rem 1.1rem;
+}
+
+.skill-search {
+  flex: 1;
+}
+
+.skill-summary {
+  align-items: center;
+  background: linear-gradient(135deg, rgba(255, 177, 92, 0.18), rgba(103, 210, 255, 0.12));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  display: grid;
+  min-width: 120px;
+  padding: 0.9rem 1rem;
+  text-align: center;
+}
+
+.skill-summary strong {
+  font-size: 1.35rem;
+}
+
+.skill-summary span {
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
+
+.skill-groups {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.skill-group {
+  display: grid;
+  gap: 0.95rem;
+}
+
+.skill-group-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.skill-group-header span {
+  color: var(--text-muted);
+}
+
+.skill-group-label {
+  color: #ffd39a;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-transform: uppercase;
 }
 
 .status-chip,
@@ -343,7 +413,7 @@ button:disabled {
 .resource-grid {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .skill-card,
@@ -371,23 +441,66 @@ button:disabled {
 .skill-card-active {
   border-color: rgba(255, 177, 92, 0.56);
   box-shadow: inset 0 0 0 1px rgba(255, 177, 92, 0.18);
+  background:
+    radial-gradient(circle at top right, rgba(255, 177, 92, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
 }
 
-.skill-toggle {
+.skill-card {
   display: grid;
-  gap: 0.75rem;
+  gap: 1rem;
+  min-height: 230px;
 }
 
-.skill-toggle input {
-  accent-color: #ff9b54;
-  height: 1.05rem;
-  width: 1.05rem;
+.skill-card-top {
+  align-items: center;
+  display: flex;
+  gap: 0.8rem;
+  justify-content: space-between;
 }
 
-.skill-toggle p,
+.skill-badge {
+  background: rgba(103, 210, 255, 0.14);
+  border: 1px solid rgba(103, 210, 255, 0.16);
+  border-radius: 999px;
+  color: #bcecff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.4rem 0.75rem;
+  text-transform: uppercase;
+}
+
+.skill-select-button {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  box-shadow: none;
+  color: #fff4df;
+  min-height: auto;
+  padding: 0.55rem 0.95rem;
+}
+
+.skill-select-button:hover {
+  background: rgba(255, 177, 92, 0.12);
+  box-shadow: none;
+}
+
+.skill-card-active .skill-select-button {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+  color: #152238;
+}
+
+.skill-body strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 0.45rem;
+}
+
+.skill-body p,
 .result-card p {
   color: var(--text-soft);
-  margin: 0.4rem 0 0;
+  margin: 0;
 }
 
 .skill-meta {
@@ -544,6 +657,7 @@ button:disabled {
     flex-direction: column;
   }
 
+  .skill-toolbar,
   .result-card-top,
   .skills-header {
     flex-direction: column;
