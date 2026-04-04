@@ -22,6 +22,11 @@ class PasswordChangeRequest(BaseModel):
     new_password: str = Field(min_length=8, max_length=128)
 
 
+class DirectPasswordResetRequest(BaseModel):
+    email: str = Field(min_length=5, max_length=255)
+    new_password: str = Field(min_length=8, max_length=128)
+
+
 class UserResponse(TimestampedSchema):
     id: int
     full_name: str
