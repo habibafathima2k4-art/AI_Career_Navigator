@@ -1,10 +1,13 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
+from app.core.security import hash_password
 from app.models.career import Career, CareerSkill
 from app.models.learning_resource import LearningResource
 from app.models.skill import Skill
+from app.models.user import User
 from app.schemas.career import CareerCreate, SkillCreate
+from app.schemas.admin import AdminPasswordResetRequest
 from app.schemas.resource import LearningResourceCreate
 
 
@@ -193,3 +196,14 @@ def delete_learning_resource(db: Session, resource_id: int) -> None:
         raise ValueError("Resource not found.")
     db.delete(resource)
     db.commit()
+
+
+def reset_user_password(db: Session, payload: AdminPasswordResetRequest) -> User:
+    user = db.scalar(select(User).where(User.email == payload.email.lower()))
+    if user is None:
+        raise ValueError("User not found.")
+
+    user.password_hash = hash_password(payload.new_password)
+    db.commit()
+    db.refresh(user)
+    return user

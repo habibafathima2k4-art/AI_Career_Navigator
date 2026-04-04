@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class AdminRecentAssessment(BaseModel):
@@ -18,3 +18,8 @@ class AdminAnalyticsResponse(BaseModel):
     total_skills: int
     total_resources: int
     recent_assessments: list[AdminRecentAssessment]
+
+
+class AdminPasswordResetRequest(BaseModel):
+    email: str = Field(min_length=5, max_length=255)
+    new_password: str = Field(min_length=8, max_length=128)

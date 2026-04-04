@@ -10,7 +10,12 @@ from app.models.learning_resource import LearningResource
 from app.models.recommendation import Recommendation
 from app.models.skill import Skill
 from app.models.user import User
-from app.schemas.admin import AdminAnalyticsResponse, AdminRecentAssessment
+from app.schemas.admin import (
+    AdminAnalyticsResponse,
+    AdminPasswordResetRequest,
+    AdminRecentAssessment,
+)
+from app.schemas.auth import UserResponse
 from app.schemas.career import CareerCreate, CareerDetailResponse, SkillBase, SkillCreate
 from app.schemas.resource import LearningResourceCreate, LearningResourceResponse
 from app.services.admin_service import (
@@ -20,6 +25,7 @@ from app.services.admin_service import (
     delete_career,
     delete_learning_resource,
     delete_skill,
+    reset_user_password,
     update_career,
     update_learning_resource,
     update_skill,
@@ -232,3 +238,16 @@ def admin_delete_resource(
     except ValueError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     return {"message": "Resource deleted."}
+
+
+@router.post("/users/reset-password", response_model=UserResponse)
+def admin_reset_user_password(
+    payload: AdminPasswordResetRequest,
+    db: Session = Depends(get_db),
+    _: User = Depends(require_admin),
+) -> UserResponse:
+    try:
+        user = reset_user_password(db, payload)
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return UserResponse.model_validate(user)
