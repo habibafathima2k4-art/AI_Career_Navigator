@@ -63,7 +63,7 @@ export default function HomePage() {
       </section>
 
       <section className="section" id="roadmap">
-        <p className="section-label">Platform status</p>
+        <p className="section-label">Roadmap</p>
         <div className="roadmap-card">
           <p>
             The platform is now live with auth, assessments, recommendations,
