@@ -535,6 +535,10 @@ button:disabled {
   align-items: start;
 }
 
+.career-detail-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .metric-row {
   display: grid;
   gap: 1rem;
@@ -642,6 +646,7 @@ button:disabled {
 
 @media (max-width: 900px) {
   .hero,
+  .career-detail-grid,
   .phase-grid,
   .form-grid,
   .admin-grid,

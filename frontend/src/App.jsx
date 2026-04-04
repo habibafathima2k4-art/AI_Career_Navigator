@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import AppShell from "./layouts/AppShell";
 import AdminPage from "./pages/AdminPage";
 import AssessmentPage from "./pages/AssessmentPage";
+import CareerDetailPage from "./pages/CareerDetailPage";
 import HistoryPage from "./pages/HistoryPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/assessment" element={<AssessmentPage />} />
+        <Route path="/careers/:careerId" element={<CareerDetailPage />} />
         <Route path="/history" element={<HistoryPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

@@ -91,7 +91,7 @@ export default function HistoryPage() {
                 <div>
                   <h2>Assessment #{item.id}</h2>
                   <p>
-                    {item.interest_area} · {item.education_level} · {item.experience_level}
+                    {item.interest_area} | {item.education_level} | {item.experience_level}
                   </p>
                 </div>
                 <span className="score-pill">
@@ -108,7 +108,7 @@ export default function HistoryPage() {
                 <div className="gap-item">
                   <strong>Top match</strong>
                   <p>
-                    {item.top_recommendation.career_title} · {item.top_recommendation.fit_score}% fit
+                    {item.top_recommendation.career_title} | {item.top_recommendation.fit_score}% fit
                   </p>
                   <p>{item.top_recommendation.reason_summary}</p>
                 </div>

@@ -63,6 +63,10 @@ export function fetchAssessments() {
   return apiRequest("/assessments");
 }
 
+export function fetchCareer(careerId) {
+  return apiRequest(`/careers/${careerId}`);
+}
+
 export function fetchResources({ careerId, skillId, limit } = {}) {
   const params = new URLSearchParams();
   if (careerId) params.set("career_id", careerId);

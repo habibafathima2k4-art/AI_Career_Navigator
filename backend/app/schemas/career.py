@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 
 from app.models.enums import ImportanceLevelEnum, SkillCategoryEnum
+from app.schemas.learning_resource import LearningResourceResponse
 from app.schemas.common import ORMModel, TimestampedSchema
 
 
@@ -33,6 +34,7 @@ class CareerResponse(TimestampedSchema):
 
 class CareerDetailResponse(CareerResponse):
     required_skills: list[CareerSkillResponse] = []
+    learning_resources: list[LearningResourceResponse] = []
 
 
 class SkillCreate(BaseModel):

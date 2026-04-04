@@ -175,6 +175,12 @@ export default function ResultsPage() {
                   </div>
                 ))}
               </div>
+
+              <div className="history-actions">
+                <Link className="ghost-link" to={`/careers/${item.career.id}`}>
+                  View career details
+                </Link>
+              </div>
             </article>
           ))}
         </div>
