@@ -67,8 +67,10 @@ export default function CareerDetailPage() {
     );
   }
 
-  const requiredSkills = career.required_skills.filter((item) => item.is_required);
-  const supportSkills = career.required_skills.filter((item) => !item.is_required);
+  const careerResources = career.learning_resources || [];
+  const careerSkills = career.required_skills || [];
+  const requiredSkills = careerSkills.filter((item) => item.is_required);
+  const supportSkills = careerSkills.filter((item) => !item.is_required);
 
   return (
     <div className="page">
@@ -142,8 +144,8 @@ export default function CareerDetailPage() {
       <section className="section">
         <p className="section-label">Roadmap resources</p>
         <div className="resource-grid">
-          {career.learning_resources.length ? (
-            career.learning_resources.map((resource) => (
+          {careerResources.length ? (
+            careerResources.map((resource) => (
               <a
                 className="resource-card"
                 href={resource.url}

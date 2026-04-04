@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 
 from app.models.enums import ImportanceLevelEnum, SkillCategoryEnum
-from app.schemas.learning_resource import LearningResourceResponse
+from app.schemas.resource import LearningResourceResponse
 from app.schemas.common import ORMModel, TimestampedSchema
 
 
