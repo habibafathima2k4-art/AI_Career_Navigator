@@ -25,6 +25,11 @@ CAREER_INTEREST_MAP = {
     "ai-engineer": {InterestAreaEnum.TECH, InterestAreaEnum.DATA},
     "data-analyst": {InterestAreaEnum.DATA, InterestAreaEnum.BUSINESS, InterestAreaEnum.TECH},
     "product-manager": {InterestAreaEnum.BUSINESS, InterestAreaEnum.MANAGEMENT},
+    "business-analyst": {InterestAreaEnum.BUSINESS, InterestAreaEnum.DATA, InterestAreaEnum.MANAGEMENT},
+    "data-scientist": {InterestAreaEnum.DATA, InterestAreaEnum.TECH},
+    "frontend-developer": {InterestAreaEnum.TECH, InterestAreaEnum.DESIGN},
+    "backend-developer": {InterestAreaEnum.TECH},
+    "bi-analyst": {InterestAreaEnum.DATA, InterestAreaEnum.BUSINESS},
 }
 
 
