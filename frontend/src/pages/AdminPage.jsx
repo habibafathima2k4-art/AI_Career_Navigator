@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../lib/AuthContext";
 import {
@@ -26,12 +26,16 @@ function normalizeError(error) {
 
 export default function AdminPage() {
   const { user, isAuthenticated } = useAuth();
+  const skillFormRef = useRef(null);
+  const resourceFormRef = useRef(null);
+  const careerFormRef = useRef(null);
   const [skills, setSkills] = useState([]);
   const [careers, setCareers] = useState([]);
   const [resources, setResources] = useState([]);
   const [analytics, setAnalytics] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [editingSkillId, setEditingSkillId] = useState(null);
   const [editingCareerId, setEditingCareerId] = useState(null);
   const [editingResourceId, setEditingResourceId] = useState(null);
@@ -64,6 +68,48 @@ export default function AdminPage() {
   });
 
   const isAdmin = user?.role === "admin";
+
+  function jumpToForm(formRef) {
+    window.requestAnimationFrame(() => {
+      formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      const firstInput = formRef.current?.querySelector("input, select, textarea");
+      if (firstInput instanceof HTMLElement) {
+        firstInput.focus();
+      }
+    });
+  }
+
+  function resetSkillForm() {
+    setEditingSkillId(null);
+    setSkillForm({ name: "", category: "technical", description: "" });
+  }
+
+  function resetCareerForm() {
+    setEditingCareerId(null);
+    setCareerForm({
+      title: "",
+      slug: "",
+      description: "",
+      industry: "",
+      growth_outlook: "",
+      salary_min: "",
+      salary_max: "",
+      required_skills: []
+    });
+  }
+
+  function resetResourceForm() {
+    setEditingResourceId(null);
+    setResourceForm({
+      title: "",
+      resource_type: "course",
+      url: "",
+      provider: "",
+      difficulty_level: "",
+      career_id: "",
+      skill_id: ""
+    });
+  }
 
   async function loadAdminData() {
     setLoading(true);
@@ -130,14 +176,17 @@ export default function AdminPage() {
 
   async function handleSkillSubmit(event) {
     event.preventDefault();
+    setError("");
+    setSuccess("");
     try {
       if (editingSkillId) {
         await updateAdminSkill(editingSkillId, skillForm);
+        setSuccess("Skill updated successfully.");
       } else {
         await createAdminSkill(skillForm);
+        setSuccess("Skill added successfully.");
       }
-      setEditingSkillId(null);
-      setSkillForm({ name: "", category: "technical", description: "" });
+      resetSkillForm();
       await loadAdminData();
     } catch (submitError) {
       setError(normalizeError(submitError));
@@ -146,6 +195,8 @@ export default function AdminPage() {
 
   async function handleCareerSubmit(event) {
     event.preventDefault();
+    setError("");
+    setSuccess("");
     try {
       const payload = {
         ...careerForm,
@@ -156,20 +207,12 @@ export default function AdminPage() {
       };
       if (editingCareerId) {
         await updateAdminCareer(editingCareerId, payload);
+        setSuccess("Career updated successfully.");
       } else {
         await createAdminCareer(payload);
+        setSuccess("Career added successfully.");
       }
-      setEditingCareerId(null);
-      setCareerForm({
-        title: "",
-        slug: "",
-        description: "",
-        industry: "",
-        growth_outlook: "",
-        salary_min: "",
-        salary_max: "",
-        required_skills: []
-      });
+      resetCareerForm();
       await loadAdminData();
     } catch (submitError) {
       setError(normalizeError(submitError));
@@ -178,6 +221,8 @@ export default function AdminPage() {
 
   async function handleResourceSubmit(event) {
     event.preventDefault();
+    setError("");
+    setSuccess("");
     try {
       const payload = {
         ...resourceForm,
@@ -188,19 +233,12 @@ export default function AdminPage() {
       };
       if (editingResourceId) {
         await updateAdminResource(editingResourceId, payload);
+        setSuccess("Resource updated successfully.");
       } else {
         await createAdminResource(payload);
+        setSuccess("Resource added successfully.");
       }
-      setEditingResourceId(null);
-      setResourceForm({
-        title: "",
-        resource_type: "course",
-        url: "",
-        provider: "",
-        difficulty_level: "",
-        career_id: "",
-        skill_id: ""
-      });
+      resetResourceForm();
       await loadAdminData();
     } catch (submitError) {
       setError(normalizeError(submitError));
@@ -208,12 +246,17 @@ export default function AdminPage() {
   }
 
   async function handleDeleteSkill(skillId) {
+    if (!window.confirm("Delete this skill?")) {
+      return;
+    }
+    setError("");
+    setSuccess("");
     try {
       await deleteAdminSkill(skillId);
       if (editingSkillId === skillId) {
-        setEditingSkillId(null);
-        setSkillForm({ name: "", category: "technical", description: "" });
+        resetSkillForm();
       }
+      setSuccess("Skill deleted successfully.");
       await loadAdminData();
     } catch (submitError) {
       setError(normalizeError(submitError));
@@ -221,11 +264,17 @@ export default function AdminPage() {
   }
 
   async function handleDeleteCareer(careerId) {
+    if (!window.confirm("Delete this career?")) {
+      return;
+    }
+    setError("");
+    setSuccess("");
     try {
       await deleteAdminCareer(careerId);
       if (editingCareerId === careerId) {
-        setEditingCareerId(null);
+        resetCareerForm();
       }
+      setSuccess("Career deleted successfully.");
       await loadAdminData();
     } catch (submitError) {
       setError(normalizeError(submitError));
@@ -233,20 +282,17 @@ export default function AdminPage() {
   }
 
   async function handleDeleteResource(resourceId) {
+    if (!window.confirm("Delete this resource?")) {
+      return;
+    }
+    setError("");
+    setSuccess("");
     try {
       await deleteAdminResource(resourceId);
       if (editingResourceId === resourceId) {
-        setEditingResourceId(null);
-        setResourceForm({
-          title: "",
-          resource_type: "course",
-          url: "",
-          provider: "",
-          difficulty_level: "",
-          career_id: "",
-          skill_id: ""
-        });
+        resetResourceForm();
       }
+      setSuccess("Resource deleted successfully.");
       await loadAdminData();
     } catch (submitError) {
       setError(normalizeError(submitError));
@@ -317,6 +363,7 @@ export default function AdminPage() {
       ) : null}
 
       {error ? <p className="error-banner">{error}</p> : null}
+      {success ? <p className="success-banner">{success}</p> : null}
       {loading ? <section className="empty-state"><h2>Loading admin data...</h2></section> : null}
 
       {!loading ? (
@@ -347,8 +394,8 @@ export default function AdminPage() {
           ) : null}
 
           <section className="admin-grid">
-            <form className="assessment-form" onSubmit={handleSkillSubmit}>
-              <p className="section-label">Create skill</p>
+            <form className="assessment-form" onSubmit={handleSkillSubmit} ref={skillFormRef}>
+              <p className="section-label">{editingSkillId ? "Edit skill" : "Create skill"}</p>
               <label className="field">
                 <span>Name</span>
                 <input
@@ -382,11 +429,22 @@ export default function AdminPage() {
                   }
                 />
               </label>
-              <button type="submit">{editingSkillId ? "Update skill" : "Add skill"}</button>
+              <div className="history-actions">
+                <button type="submit">{editingSkillId ? "Update skill" : "Add skill"}</button>
+                {editingSkillId ? (
+                  <button className="secondary-button" type="button" onClick={resetSkillForm}>
+                    Cancel
+                  </button>
+                ) : null}
+              </div>
             </form>
 
-            <form className="assessment-form" onSubmit={handleResourceSubmit}>
-              <p className="section-label">Create resource</p>
+            <form
+              className="assessment-form"
+              onSubmit={handleResourceSubmit}
+              ref={resourceFormRef}
+            >
+              <p className="section-label">{editingResourceId ? "Edit resource" : "Create resource"}</p>
               <label className="field">
                 <span>Title</span>
                 <input
@@ -441,13 +499,26 @@ export default function AdminPage() {
                   ))}
                 </select>
               </label>
-              <button type="submit">{editingResourceId ? "Update resource" : "Add resource"}</button>
+              <div className="history-actions">
+                <button type="submit">
+                  {editingResourceId ? "Update resource" : "Add resource"}
+                </button>
+                {editingResourceId ? (
+                  <button
+                    className="secondary-button"
+                    type="button"
+                    onClick={resetResourceForm}
+                  >
+                    Cancel
+                  </button>
+                ) : null}
+              </div>
             </form>
           </section>
 
           <section className="assessment-form">
-            <p className="section-label">Create career</p>
-            <form className="admin-grid" onSubmit={handleCareerSubmit}>
+            <p className="section-label">{editingCareerId ? "Edit career" : "Create career"}</p>
+            <form className="admin-grid" onSubmit={handleCareerSubmit} ref={careerFormRef}>
               <label className="field">
                 <span>Title</span>
                 <input
@@ -586,7 +657,20 @@ export default function AdminPage() {
               </div>
 
               <div className="form-actions admin-span-2">
-                <button type="submit">{editingCareerId ? "Update career" : "Add career"}</button>
+                <div className="history-actions">
+                  <button type="submit">
+                    {editingCareerId ? "Update career" : "Add career"}
+                  </button>
+                  {editingCareerId ? (
+                    <button
+                      className="secondary-button"
+                      type="button"
+                      onClick={resetCareerForm}
+                    >
+                      Cancel
+                    </button>
+                  ) : null}
+                </div>
               </div>
             </form>
           </section>
@@ -609,6 +693,8 @@ export default function AdminPage() {
                   <button
                     type="button"
                     onClick={() => {
+                      setError("");
+                      setSuccess("Editing career loaded into the form below.");
                       setEditingCareerId(career.id);
                       setCareerForm({
                         title: career.title,
@@ -625,11 +711,12 @@ export default function AdminPage() {
                           weight: item.weight
                         }))
                       });
+                      jumpToForm(careerFormRef);
                     }}
                   >
                     Edit
                   </button>
-                  <button type="button" onClick={() => handleDeleteCareer(career.id)}>
+                  <button className="danger-button" type="button" onClick={() => handleDeleteCareer(career.id)}>
                     Delete
                   </button>
                 </div>
@@ -648,17 +735,20 @@ export default function AdminPage() {
                     <button
                       type="button"
                       onClick={() => {
+                        setError("");
+                        setSuccess("Editing skill loaded into the form above.");
                         setEditingSkillId(skill.id);
                         setSkillForm({
                           name: skill.name,
                           category: skill.category,
                           description: skill.description || ""
                         });
+                        jumpToForm(skillFormRef);
                       }}
                     >
                       Edit
                     </button>
-                    <button type="button" onClick={() => handleDeleteSkill(skill.id)}>
+                    <button className="danger-button" type="button" onClick={() => handleDeleteSkill(skill.id)}>
                       Delete
                     </button>
                   </div>
@@ -676,6 +766,8 @@ export default function AdminPage() {
                     <button
                       type="button"
                       onClick={() => {
+                        setError("");
+                        setSuccess("Editing resource loaded into the form above.");
                         setEditingResourceId(resource.id);
                         setResourceForm({
                           title: resource.title,
@@ -686,11 +778,12 @@ export default function AdminPage() {
                           career_id: resource.career_id || "",
                           skill_id: resource.skill_id || ""
                         });
+                        jumpToForm(resourceFormRef);
                       }}
                     >
                       Edit
                     </button>
-                    <button type="button" onClick={() => handleDeleteResource(resource.id)}>
+                    <button className="danger-button" type="button" onClick={() => handleDeleteResource(resource.id)}>
                       Delete
                     </button>
                   </div>
