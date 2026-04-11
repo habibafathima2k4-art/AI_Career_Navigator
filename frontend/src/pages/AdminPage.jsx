@@ -811,10 +811,16 @@ export default function AdminPage() {
 
             <article className="result-card">
               <p className="section-label">Resources</p>
+              <div className="admin-skill-list">
               {resources.map((resource) => (
-                <div className="gap-item" key={resource.id}>
-                  <strong>{resource.title}</strong>
-                  <p>{resource.resource_type}</p>
+                <div className="gap-item admin-skill-item" key={resource.id}>
+                  <div className="admin-skill-row">
+                    <div className="admin-skill-copy">
+                      <strong>{resource.title}</strong>
+                      <p>{resource.provider || resource.resource_type}</p>
+                    </div>
+                    <span className="admin-category-badge">{resource.resource_type}</span>
+                  </div>
                   <div className="history-actions">
                     <button
                       className="admin-action-button"
@@ -847,6 +853,7 @@ export default function AdminPage() {
                   </div>
                 </div>
               ))}
+              </div>
             </article>
           </section>
         </>
