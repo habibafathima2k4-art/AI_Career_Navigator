@@ -709,6 +709,7 @@ export default function AdminPage() {
                 </div>
                 <div className="history-actions">
                   <button
+                    className="admin-action-button"
                     type="button"
                     onClick={() => {
                       setError("");
@@ -734,7 +735,11 @@ export default function AdminPage() {
                   >
                     Edit
                   </button>
-                  <button className="danger-button" type="button" onClick={() => handleDeleteCareer(career.id)}>
+                  <button
+                    className="admin-action-button admin-delete-button"
+                    type="button"
+                    onClick={() => handleDeleteCareer(career.id)}
+                  >
                     Delete
                   </button>
                 </div>
@@ -760,6 +765,7 @@ export default function AdminPage() {
                   </div>
                   <div className="history-actions">
                     <button
+                      className="admin-action-button"
                       type="button"
                       onClick={() => {
                         setError("");
@@ -775,7 +781,11 @@ export default function AdminPage() {
                     >
                       Edit
                     </button>
-                    <button className="danger-button" type="button" onClick={() => handleDeleteSkill(skill.id)}>
+                    <button
+                      className="admin-action-button admin-delete-button"
+                      type="button"
+                      onClick={() => handleDeleteSkill(skill.id)}
+                    >
                       Delete
                     </button>
                   </div>
@@ -792,6 +802,7 @@ export default function AdminPage() {
                   <p>{resource.resource_type}</p>
                   <div className="history-actions">
                     <button
+                      className="admin-action-button"
                       type="button"
                       onClick={() => {
                         setError("");
@@ -811,7 +822,11 @@ export default function AdminPage() {
                     >
                       Edit
                     </button>
-                    <button className="danger-button" type="button" onClick={() => handleDeleteResource(resource.id)}>
+                    <button
+                      className="admin-action-button admin-delete-button"
+                      type="button"
+                      onClick={() => handleDeleteResource(resource.id)}
+                    >
                       Delete
                     </button>
                   </div>
