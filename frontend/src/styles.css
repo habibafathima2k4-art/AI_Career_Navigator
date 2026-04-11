@@ -249,6 +249,12 @@ button:disabled {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.roadmap-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .phase-card,
 .roadmap-card,
 .assessment-form,
@@ -257,6 +263,94 @@ button:disabled {
 .metric-card,
 .empty-state {
   padding: 1.35rem;
+}
+
+.phase-card {
+  display: grid;
+  gap: 1rem;
+  min-height: 220px;
+}
+
+.phase-step-row {
+  align-items: center;
+  display: flex;
+  gap: 0.85rem;
+}
+
+.phase-step-badge {
+  align-items: center;
+  background: linear-gradient(135deg, rgba(232, 155, 60, 0.2), rgba(75, 143, 199, 0.1));
+  border: 1px solid rgba(33, 48, 71, 0.08);
+  border-radius: 999px;
+  color: #8d5a20;
+  display: inline-flex;
+  font-size: 0.82rem;
+  font-weight: 800;
+  justify-content: center;
+  letter-spacing: 0.08em;
+  min-width: 52px;
+  padding: 0.5rem 0.85rem;
+}
+
+.phase-step-line {
+  background: linear-gradient(90deg, rgba(232, 155, 60, 0.4), rgba(75, 143, 199, 0.22));
+  border-radius: 999px;
+  display: block;
+  flex: 1;
+  height: 2px;
+}
+
+.phase-copy {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.phase-kicker {
+  color: #7f93aa;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.phase-card h3,
+.roadmap-card h3 {
+  color: #213047;
+  font-size: 1.3rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.roadmap-card {
+  display: grid;
+  gap: 0.85rem;
+  min-height: 210px;
+  position: relative;
+}
+
+.roadmap-card::before {
+  background: linear-gradient(180deg, rgba(232, 155, 60, 0.55), rgba(75, 143, 199, 0.32));
+  border-radius: 999px;
+  content: "";
+  height: 52px;
+  left: 1.35rem;
+  position: absolute;
+  top: -0.8rem;
+  width: 3px;
+}
+
+.roadmap-pill {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(33, 48, 71, 0.08);
+  border-radius: 999px;
+  color: #b06e22;
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.48rem 0.82rem;
+  width: fit-content;
 }
 
 .assessment-form {
@@ -995,6 +1089,7 @@ button:disabled {
   .hero,
   .career-detail-grid,
   .phase-grid,
+  .roadmap-grid,
   .form-grid,
   .admin-grid,
   .skills-grid,
