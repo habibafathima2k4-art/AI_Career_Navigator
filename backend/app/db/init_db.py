@@ -25,12 +25,12 @@ def ensure_resource_type_enum_values() -> None:
         return
 
     values = (
-        "course",
-        "video",
-        "article",
-        "project",
-        "certification",
-        "documentation",
+        "COURSE",
+        "VIDEO",
+        "ARTICLE",
+        "PROJECT",
+        "CERTIFICATION",
+        "DOCUMENTATION",
     )
 
     with engine.begin() as connection:
