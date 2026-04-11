@@ -78,10 +78,16 @@ export default function ResultsPage() {
   }
 
   const [topMatch, ...otherMatches] = data.recommendations;
+  const comparisonItems = data.recommendations.slice(0, 5);
   const gapLabelMap = {
     missing: "Missing now",
     recommended: "Worth adding",
     matched: "Already strong"
+  };
+  const comparisonToneMap = {
+    1: "Best match",
+    2: "Strong alternative",
+    3: "High potential"
   };
 
   return (
@@ -143,6 +149,43 @@ export default function ResultsPage() {
                   <span className="score-pill">{resource.resource_type}</span>
                 </div>
               </a>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {comparisonItems.length ? (
+        <section className="section">
+          <div className="section-header">
+            <p className="section-label">Recommendation comparison</p>
+            <p className="page-copy">
+              Compare your top-matched career paths by fit score and quickly spot the strongest alternatives.
+            </p>
+          </div>
+          <div className="comparison-board">
+            {comparisonItems.map((item) => (
+              <article className="comparison-row" key={`comparison-${item.id}`}>
+                <div className="comparison-copy">
+                  <div className="comparison-title-row">
+                    <strong>{item.career.title}</strong>
+                    <span className="comparison-rank-badge">
+                      {comparisonToneMap[item.rank] || `Rank #${item.rank}`}
+                    </span>
+                  </div>
+                  <p>
+                    {item.career.industry || "Career path"} | Confidence {item.confidence_score}%
+                  </p>
+                </div>
+                <div className="comparison-metric">
+                  <span>{item.fit_score}%</span>
+                </div>
+                <div className="comparison-bar-shell" aria-hidden="true">
+                  <div
+                    className="comparison-bar-fill"
+                    style={{ width: `${Math.max(item.fit_score, 8)}%` }}
+                  />
+                </div>
+              </article>
             ))}
           </div>
         </section>
