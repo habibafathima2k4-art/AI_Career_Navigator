@@ -545,13 +545,15 @@ button:disabled {
 }
 
 .secondary-button {
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: none;
-  color: #fff4df;
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(33, 48, 71, 0.1);
+  box-shadow: 0 10px 20px rgba(36, 54, 79, 0.08);
+  color: #213047;
 }
 
 .secondary-button:hover {
-  box-shadow: none;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 14px 24px rgba(36, 54, 79, 0.12);
 }
 
 .danger-button {
@@ -565,15 +567,15 @@ button:disabled {
 }
 
 .admin-action-button {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(245, 240, 232, 0.92));
+  border: 1px solid rgba(33, 48, 71, 0.1);
   border-radius: 999px;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.05),
-    0 8px 16px rgba(0, 0, 0, 0.14);
-  color: #eaf2ff;
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 12px 24px rgba(36, 54, 79, 0.12);
+  color: #274261;
   font-size: 0.88rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.04em;
   min-height: 38px;
   min-width: 82px;
@@ -582,23 +584,23 @@ button:disabled {
 }
 
 .admin-action-button:hover {
-  background: rgba(103, 210, 255, 0.12);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(233, 243, 252, 0.96));
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 12px 20px rgba(0, 0, 0, 0.16);
-  color: #f6fbff;
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 16px 28px rgba(36, 54, 79, 0.16);
+  color: #183250;
   transform: translateY(-1px);
 }
 
 .admin-delete-button {
-  background: rgba(255, 123, 123, 0.1);
-  border-color: rgba(255, 123, 123, 0.16);
-  color: #ffd3d3;
+  background: linear-gradient(180deg, rgba(255, 242, 240, 0.98), rgba(255, 228, 224, 0.92));
+  border-color: rgba(217, 107, 107, 0.22);
+  color: #b14e4e;
 }
 
 .admin-delete-button:hover {
-  background: rgba(255, 123, 123, 0.16);
-  color: #fff2f2;
+  background: linear-gradient(180deg, rgba(255, 236, 232, 1), rgba(255, 219, 214, 0.96));
+  color: #943d3d;
 }
 
 .results-hero {
