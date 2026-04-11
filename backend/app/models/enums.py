@@ -58,10 +58,10 @@ class ResourceTypeEnum(str, Enum):
     ARTICLE = "article"
     PROJECT = "project"
     CERTIFICATION = "certification"
+    DOCUMENTATION = "documentation"
 
 
 class ProgressStatusEnum(str, Enum):
     NOT_STARTED = "not_started"
     IN_PROGRESS = "in_progress"
     COMPLETED = "completed"
-

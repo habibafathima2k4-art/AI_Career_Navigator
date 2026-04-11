@@ -489,6 +489,7 @@ export default function AdminPage() {
                   <option value="article">Article</option>
                   <option value="video">Video</option>
                   <option value="certification">Certification</option>
+                  <option value="documentation">Documentation</option>
                 </select>
               </label>
               <label className="field">

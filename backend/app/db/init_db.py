@@ -15,6 +15,29 @@ from app.models import (
 
 def init_db() -> None:
     Base.metadata.create_all(bind=engine)
+    ensure_resource_type_enum_values()
+
+
+def ensure_resource_type_enum_values() -> None:
+    # Postgres enum types are not altered by create_all, so extend the live enum
+    # during startup before seed/update logic writes new resource types.
+    if engine.dialect.name != "postgresql":
+        return
+
+    values = (
+        "course",
+        "video",
+        "article",
+        "project",
+        "certification",
+        "documentation",
+    )
+
+    with engine.begin() as connection:
+        for value in values:
+            connection.exec_driver_sql(
+                f"ALTER TYPE resource_type_enum ADD VALUE IF NOT EXISTS '{value}'"
+            )
 
 
 if __name__ == "__main__":
