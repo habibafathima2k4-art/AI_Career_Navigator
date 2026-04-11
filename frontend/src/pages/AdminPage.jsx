@@ -394,8 +394,22 @@ export default function AdminPage() {
           ) : null}
 
           <section className="admin-grid">
-            <form className="assessment-form" onSubmit={handleSkillSubmit} ref={skillFormRef}>
-              <p className="section-label">{editingSkillId ? "Edit skill" : "Create skill"}</p>
+            <form
+              className={`assessment-form admin-skill-form ${editingSkillId ? "admin-skill-form-editing" : ""}`}
+              onSubmit={handleSkillSubmit}
+              ref={skillFormRef}
+            >
+              <div className="admin-skill-form-header">
+                <div>
+                  <p className="section-label">{editingSkillId ? "Edit skill" : "Create skill"}</p>
+                  <h2 className="admin-card-title">
+                    {editingSkillId ? "Update the selected skill" : "Add a new skill to the catalog"}
+                  </h2>
+                </div>
+                <span className="admin-skill-status">
+                  {editingSkillId ? "Editing live item" : "New entry"}
+                </span>
+              </div>
               <label className="field">
                 <span>Name</span>
                 <input
@@ -429,6 +443,10 @@ export default function AdminPage() {
                   }
                 />
               </label>
+              <p className="admin-form-note">
+                Keep the skill name short, choose the closest category, and write a one-line
+                description that explains how the skill is used in recommendations.
+              </p>
               <div className="history-actions">
                 <button type="submit">{editingSkillId ? "Update skill" : "Add skill"}</button>
                 {editingSkillId ? (
@@ -727,10 +745,19 @@ export default function AdminPage() {
           <section className="admin-grid">
             <article className="result-card">
               <p className="section-label">Skills</p>
+              <div className="admin-skill-list">
               {skills.map((skill) => (
-                <div className="gap-item" key={skill.id}>
-                  <strong>{skill.name}</strong>
-                  <p>{skill.category}</p>
+                <div
+                  className={`gap-item admin-skill-item ${editingSkillId === skill.id ? "admin-skill-item-active" : ""}`}
+                  key={skill.id}
+                >
+                  <div className="admin-skill-row">
+                    <div className="admin-skill-copy">
+                      <strong>{skill.name}</strong>
+                      <p>{skill.description || "No description added yet."}</p>
+                    </div>
+                    <span className="admin-category-badge">{skill.category}</span>
+                  </div>
                   <div className="history-actions">
                     <button
                       type="button"
@@ -754,6 +781,7 @@ export default function AdminPage() {
                   </div>
                 </div>
               ))}
+              </div>
             </article>
 
             <article className="result-card">
