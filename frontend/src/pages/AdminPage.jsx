@@ -458,11 +458,21 @@ export default function AdminPage() {
             </form>
 
             <form
-              className="assessment-form"
+              className={`assessment-form admin-skill-form ${editingResourceId ? "admin-skill-form-editing" : ""}`}
               onSubmit={handleResourceSubmit}
               ref={resourceFormRef}
             >
-              <p className="section-label">{editingResourceId ? "Edit resource" : "Create resource"}</p>
+              <div className="admin-skill-form-header">
+                <div>
+                  <p className="section-label">{editingResourceId ? "Edit resource" : "Create resource"}</p>
+                  <h2 className="admin-card-title">
+                    {editingResourceId ? "Update the selected resource" : "Add a new roadmap resource"}
+                  </h2>
+                </div>
+                <span className="admin-skill-status">
+                  {editingResourceId ? "Editing live item" : "New entry"}
+                </span>
+              </div>
               <label className="field">
                 <span>Title</span>
                 <input
@@ -518,6 +528,10 @@ export default function AdminPage() {
                   ))}
                 </select>
               </label>
+              <p className="admin-form-note">
+                Add a clear title, choose the right type, and attach the resource to the most
+                relevant career so it appears in the roadmap section properly.
+              </p>
               <div className="history-actions">
                 <button type="submit">
                   {editingResourceId ? "Update resource" : "Add resource"}
@@ -615,14 +629,14 @@ export default function AdminPage() {
 
               <div className="admin-span-2">
                 <p className="section-label">Required skills</p>
-                <div className="skills-grid">
+                <div className="skills-grid admin-required-skills-grid">
                   {skills.map((skill) => {
                     const selected = careerForm.required_skills.find(
                       (item) => item.skill_id === skill.id
                     );
                     return (
                       <article
-                        className={`skill-card ${selected ? "skill-card-active" : ""}`}
+                        className={`skill-card admin-required-skill-card ${selected ? "skill-card-active" : ""}`}
                         key={skill.id}
                       >
                         <label className="skill-toggle">

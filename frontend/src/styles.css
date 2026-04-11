@@ -457,6 +457,44 @@ button:disabled {
   min-height: 230px;
 }
 
+.admin-required-skills-grid {
+  gap: 0.85rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.admin-required-skill-card {
+  gap: 0.8rem;
+  min-height: 160px;
+  padding: 1rem;
+}
+
+.admin-required-skill-card .skill-toggle {
+  gap: 0.7rem;
+}
+
+.admin-required-skill-card .skill-toggle input {
+  margin-top: 0.1rem;
+}
+
+.admin-required-skill-card .skill-toggle strong {
+  font-size: 0.98rem;
+  margin-bottom: 0.35rem;
+}
+
+.admin-required-skill-card .skill-toggle p {
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.admin-required-skill-card .skill-meta {
+  gap: 0.7rem;
+}
+
+.admin-required-skill-card .field input,
+.admin-required-skill-card .field select {
+  padding: 0.72rem 0.85rem;
+}
+
 .skill-card-top {
   align-items: center;
   display: flex;
