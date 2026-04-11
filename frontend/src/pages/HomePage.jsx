@@ -84,6 +84,9 @@ export default function HomePage() {
             <li>Live assessment powered by a real backend and database</li>
             <li>Top-match career scoring with clear fit explanations</li>
             <li>Skill-gap analysis and guided next-step resources</li>
+            <li>Career detail pages with salaries, outlook, and core skill expectations</li>
+            <li>Roadmap resources across courses, videos, articles, certifications, and docs</li>
+            <li>Private assessment history so users can revisit and compare progress</li>
             <li>Admin tools for careers, skills, and roadmap content</li>
           </ul>
         </aside>
