@@ -2,21 +2,21 @@
   font-family: "Trebuchet MS", "Segoe UI", sans-serif;
   color: #213047;
   background:
-    radial-gradient(circle at top left, rgba(232, 155, 60, 0.18), transparent 30%),
-    radial-gradient(circle at 86% 12%, rgba(75, 143, 199, 0.16), transparent 28%),
-    linear-gradient(180deg, #f7f4ee 0%, #f2ede4 55%, #ebe5da 100%);
+    radial-gradient(circle at top left, rgba(201, 138, 46, 0.12), transparent 28%),
+    radial-gradient(circle at 86% 12%, rgba(106, 143, 184, 0.14), transparent 26%),
+    linear-gradient(180deg, #f6f4f0 0%, #f3f5f7 52%, #edf1f5 100%);
   line-height: 1.5;
   font-weight: 400;
-  --surface: rgba(255, 253, 249, 0.78);
+  --surface: rgba(252, 253, 255, 0.78);
   --surface-strong: rgba(255, 255, 255, 0.92);
-  --surface-deep: rgba(255, 250, 243, 0.92);
+  --surface-deep: rgba(248, 250, 253, 0.92);
   --stroke: rgba(33, 48, 71, 0.08);
   --text-soft: #5d6c80;
   --text-muted: #7a8899;
-  --accent: #e89b3c;
-  --accent-strong: #d9822b;
-  --accent-cool: #4b8fc7;
-  --danger: #d96b6b;
+  --accent: #cf8f35;
+  --accent-strong: #b97727;
+  --accent-cool: #6a8fb8;
+  --danger: #c96b65;
   --shadow-lg: 0 22px 44px rgba(36, 54, 79, 0.12);
 }
 
@@ -34,7 +34,7 @@ body,
 body {
   min-height: 100vh;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0) 32%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.52), rgba(255, 255, 255, 0) 32%),
     transparent;
 }
 
@@ -58,13 +58,13 @@ button {
   min-height: 48px;
   padding: 0.9rem 1.4rem;
   transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
-  box-shadow: 0 14px 28px rgba(255, 142, 66, 0.24);
+  box-shadow: 0 14px 28px rgba(185, 119, 39, 0.2);
 }
 
 .primary-link:hover,
 button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 18px 32px rgba(255, 142, 66, 0.28);
+  box-shadow: 0 18px 32px rgba(185, 119, 39, 0.24);
 }
 
 button:disabled {
@@ -83,7 +83,7 @@ button:disabled {
 .site-header {
   align-items: center;
   backdrop-filter: blur(20px);
-  background: rgba(255, 252, 247, 0.76);
+  background: rgba(250, 252, 254, 0.8);
   border: 1px solid rgba(33, 48, 71, 0.08);
   border-radius: 999px;
   box-shadow: var(--shadow-lg);
@@ -156,7 +156,7 @@ button:disabled {
 
 .eyebrow,
 .section-label {
-  color: #c88430;
+  color: #b17a32;
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -200,7 +200,7 @@ button:disabled {
 .phase-card,
 .roadmap-card {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(255, 252, 247, 0.72));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(247, 250, 253, 0.8));
   border: 1px solid var(--stroke);
   border-radius: 28px;
   box-shadow: var(--shadow-lg);
@@ -279,10 +279,10 @@ button:disabled {
 
 .phase-step-badge {
   align-items: center;
-  background: linear-gradient(135deg, rgba(232, 155, 60, 0.2), rgba(75, 143, 199, 0.1));
+  background: linear-gradient(135deg, rgba(201, 138, 46, 0.16), rgba(106, 143, 184, 0.1));
   border: 1px solid rgba(33, 48, 71, 0.08);
   border-radius: 999px;
-  color: #8d5a20;
+  color: #7f5c2d;
   display: inline-flex;
   font-size: 0.82rem;
   font-weight: 800;
@@ -293,7 +293,7 @@ button:disabled {
 }
 
 .phase-step-line {
-  background: linear-gradient(90deg, rgba(232, 155, 60, 0.4), rgba(75, 143, 199, 0.22));
+  background: linear-gradient(90deg, rgba(201, 138, 46, 0.28), rgba(106, 143, 184, 0.22));
   border-radius: 999px;
   display: block;
   flex: 1;
@@ -329,7 +329,7 @@ button:disabled {
 }
 
 .roadmap-card::before {
-  background: linear-gradient(180deg, rgba(232, 155, 60, 0.55), rgba(75, 143, 199, 0.32));
+  background: linear-gradient(180deg, rgba(201, 138, 46, 0.42), rgba(106, 143, 184, 0.28));
   border-radius: 999px;
   content: "";
   height: 52px;
@@ -386,7 +386,7 @@ button:disabled {
 }
 
 .field span {
-  color: #a56a24;
+  color: #8f6734;
   font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -449,7 +449,7 @@ button:disabled {
 
 .skill-summary {
   align-items: center;
-  background: linear-gradient(135deg, rgba(232, 155, 60, 0.16), rgba(75, 143, 199, 0.1));
+  background: linear-gradient(135deg, rgba(201, 138, 46, 0.14), rgba(106, 143, 184, 0.1));
   border: 1px solid rgba(33, 48, 71, 0.08);
   border-radius: 20px;
   display: grid;
@@ -726,14 +726,14 @@ button:disabled {
 }
 
 .admin-delete-button {
-  background: linear-gradient(180deg, rgba(255, 242, 240, 0.98), rgba(255, 228, 224, 0.92));
-  border-color: rgba(217, 107, 107, 0.22);
-  color: #b14e4e;
+  background: linear-gradient(180deg, rgba(247, 244, 244, 0.98), rgba(239, 234, 234, 0.92));
+  border-color: rgba(201, 107, 101, 0.18);
+  color: #9b5b57;
 }
 
 .admin-delete-button:hover {
-  background: linear-gradient(180deg, rgba(255, 236, 232, 1), rgba(255, 219, 214, 0.96));
-  color: #943d3d;
+  background: linear-gradient(180deg, rgba(243, 239, 239, 1), rgba(235, 229, 229, 0.96));
+  color: #824947;
 }
 
 .results-hero {
@@ -945,8 +945,8 @@ button:disabled {
 .admin-skill-form {
   background:
     radial-gradient(circle at top right, rgba(75, 143, 199, 0.12), transparent 34%),
-    radial-gradient(circle at top left, rgba(232, 155, 60, 0.12), transparent 28%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 252, 247, 0.82));
+    radial-gradient(circle at top left, rgba(201, 138, 46, 0.08), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.93), rgba(247, 250, 253, 0.84));
   backdrop-filter: blur(22px);
   border: 1px solid rgba(33, 48, 71, 0.08);
   box-shadow:
@@ -1003,7 +1003,7 @@ button:disabled {
 }
 
 .admin-form-note {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 249, 243, 0.75));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(246, 249, 252, 0.78));
   border: 1px solid rgba(33, 48, 71, 0.08);
   border-radius: 20px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
@@ -1028,7 +1028,7 @@ button:disabled {
 }
 
 .admin-scroll-panel::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(232, 155, 60, 0.7), rgba(75, 143, 199, 0.55));
+  background: linear-gradient(180deg, rgba(201, 138, 46, 0.54), rgba(106, 143, 184, 0.5));
   border-radius: 999px;
 }
 
@@ -1056,12 +1056,12 @@ button:disabled {
 
 .admin-skill-item-active {
   background:
-    radial-gradient(circle at top right, rgba(232, 155, 60, 0.12), transparent 28%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 252, 247, 0.78));
-  border-color: rgba(232, 155, 60, 0.3);
+    radial-gradient(circle at top right, rgba(201, 138, 46, 0.08), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(246, 249, 252, 0.8));
+  border-color: rgba(201, 138, 46, 0.24);
   box-shadow:
     0 18px 32px rgba(36, 54, 79, 0.12),
-    inset 0 0 0 1px rgba(232, 155, 60, 0.16),
+    inset 0 0 0 1px rgba(201, 138, 46, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
@@ -1088,10 +1088,10 @@ button:disabled {
 }
 
 .admin-category-badge {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(232, 155, 60, 0.1));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.76), rgba(201, 138, 46, 0.08));
   border: 1px solid rgba(33, 48, 71, 0.08);
   border-radius: 999px;
-  color: #946126;
+  color: #846742;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   font-size: 0.76rem;
   font-weight: 700;
