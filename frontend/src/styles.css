@@ -1116,6 +1116,113 @@ button:disabled {
   margin: 0;
 }
 
+/* Final dark-theme consistency overrides for shared surfaces */
+.assessment-form,
+.hero-panel,
+.phase-card,
+.roadmap-card,
+.skill-card,
+.result-card,
+.resource-card,
+.metric-card,
+.empty-state,
+.admin-skill-item,
+.gap-item {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--stroke);
+  color: #f8f3ea;
+}
+
+.assessment-form,
+.hero-panel,
+.phase-card,
+.roadmap-card,
+.skill-card,
+.result-card,
+.resource-card,
+.metric-card,
+.empty-state,
+.admin-skill-item {
+  box-shadow: var(--shadow-lg);
+}
+
+.assessment-form .section-label,
+.assessment-form .field span,
+.hero-panel h2,
+.phase-card h3,
+.roadmap-card h3,
+.result-card h2,
+.metric-card strong,
+.empty-state h2,
+.admin-card-title,
+.admin-skill-copy strong,
+.gap-item strong {
+  color: #fff2de;
+}
+
+.hero-copy,
+.page-copy,
+.hero-panel ul,
+.skill-body p,
+.result-card p,
+.admin-skill-copy p,
+.gap-item p,
+.metric-card span,
+.empty-state p {
+  color: var(--text-soft);
+}
+
+.phase-kicker,
+.site-nav,
+.site-nav a,
+.api-badge,
+.roadmap-card p,
+.phase-card p {
+  color: var(--text-soft);
+}
+
+.score-pill,
+.status-chip,
+.roadmap-pill,
+.skill-badge,
+.admin-category-badge {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffd39a;
+}
+
+.skill-card-active,
+.admin-required-skill-card.skill-card-active {
+  background:
+    radial-gradient(circle at top right, rgba(255, 177, 92, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border-color: rgba(255, 177, 92, 0.36);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 177, 92, 0.16),
+    var(--shadow-lg);
+}
+
+.admin-action-button.secondary-button,
+.secondary-button {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+  color: #fff2de;
+}
+
+.secondary-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+  color: #ffffff;
+}
+
+.admin-delete-button,
+.danger-button {
+  background: linear-gradient(135deg, #ff8a7a 0%, #ff6565 100%);
+  color: #fff8f7;
+}
+
 @media (max-width: 900px) {
   .hero,
   .career-detail-grid,
