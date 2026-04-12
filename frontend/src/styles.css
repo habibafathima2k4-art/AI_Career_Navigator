@@ -279,10 +279,10 @@ button:disabled {
 
 .phase-step-badge {
   align-items: center;
-  background: linear-gradient(135deg, rgba(201, 138, 46, 0.16), rgba(106, 143, 184, 0.1));
-  border: 1px solid rgba(33, 48, 71, 0.08);
+  background: linear-gradient(135deg, rgba(255, 177, 92, 0.18), rgba(103, 210, 255, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 999px;
-  color: #7f5c2d;
+  color: #ffb968;
   display: inline-flex;
   font-size: 0.82rem;
   font-weight: 800;
@@ -293,7 +293,7 @@ button:disabled {
 }
 
 .phase-step-line {
-  background: linear-gradient(90deg, rgba(201, 138, 46, 0.28), rgba(106, 143, 184, 0.22));
+  background: linear-gradient(90deg, rgba(255, 177, 92, 0.28), rgba(103, 210, 255, 0.18));
   border-radius: 999px;
   display: block;
   flex: 1;
@@ -306,7 +306,7 @@ button:disabled {
 }
 
 .phase-kicker {
-  color: #7f93aa;
+  color: #84a4cf;
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -315,7 +315,7 @@ button:disabled {
 
 .phase-card h3,
 .roadmap-card h3 {
-  color: #213047;
+  color: #fff2de;
   font-size: 1.3rem;
   line-height: 1.2;
   margin: 0;
@@ -329,7 +329,7 @@ button:disabled {
 }
 
 .roadmap-card::before {
-  background: linear-gradient(180deg, rgba(201, 138, 46, 0.42), rgba(106, 143, 184, 0.28));
+  background: linear-gradient(180deg, rgba(255, 177, 92, 0.4), rgba(103, 210, 255, 0.24));
   border-radius: 999px;
   content: "";
   height: 52px;
@@ -341,10 +341,10 @@ button:disabled {
 
 .roadmap-pill {
   align-items: center;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(33, 48, 71, 0.08);
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
-  color: #b06e22;
+  color: #ffcf99;
   display: inline-flex;
   font-size: 0.78rem;
   font-weight: 800;
@@ -355,7 +355,7 @@ button:disabled {
 
 .assessment-form {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 252, 247, 0.76));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
   border: 1px solid var(--stroke);
   border-radius: 30px;
   box-shadow: var(--shadow-lg);
