@@ -769,6 +769,12 @@ button:disabled {
   gap: 1rem;
 }
 
+.admin-scroll-panel {
+  grid-template-rows: auto minmax(0, 1fr);
+  max-height: 980px;
+  min-height: 980px;
+}
+
 .result-card-top {
   align-items: start;
   display: flex;
@@ -1006,8 +1012,27 @@ button:disabled {
 }
 
 .admin-skill-list {
+  align-content: start;
   display: grid;
   gap: 1rem;
+  max-height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.35rem;
+}
+
+.admin-skill-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.admin-skill-list::-webkit-scrollbar-track {
+  background: rgba(33, 48, 71, 0.06);
+  border-radius: 999px;
+}
+
+.admin-skill-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(232, 155, 60, 0.7), rgba(75, 143, 199, 0.55));
+  border-radius: 999px;
 }
 
 .admin-skill-item {
@@ -1119,5 +1144,16 @@ button:disabled {
 
   .comparison-metric {
     justify-content: flex-start;
+  }
+
+  .admin-scroll-panel {
+    max-height: none;
+    min-height: auto;
+  }
+
+  .admin-skill-list {
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
   }
 }

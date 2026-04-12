@@ -763,7 +763,7 @@ export default function AdminPage() {
           </section>
 
           <section className="admin-grid">
-            <article className="result-card">
+            <article className="result-card admin-scroll-panel">
               <p className="section-label">Skills</p>
               <div className="admin-skill-list">
               {skills.map((skill) => (
@@ -809,7 +809,7 @@ export default function AdminPage() {
               </div>
             </article>
 
-            <article className="result-card">
+            <article className="result-card admin-scroll-panel">
               <p className="section-label">Resources</p>
               <div className="admin-skill-list">
               {resources.map((resource) => (
