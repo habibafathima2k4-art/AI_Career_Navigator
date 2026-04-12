@@ -393,7 +393,7 @@ export default function AdminPage() {
             </section>
           ) : null}
 
-          <section className="admin-grid">
+          <section className="admin-grid admin-form-grid">
             <form
               className={`assessment-form admin-skill-form ${editingSkillId ? "admin-skill-form-editing" : ""}`}
               onSubmit={handleSkillSubmit}
