@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { getApiBaseUrl } from "../lib/api";
 
 const phases = [
   {
@@ -75,7 +74,6 @@ export default function HomePage() {
             <Link className="primary-link" to="/assessment">
               Start Assessment
             </Link>
-            <span className="api-badge">API: {getApiBaseUrl()}</span>
           </div>
         </div>
         <aside className="hero-panel">
