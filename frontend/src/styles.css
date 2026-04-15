@@ -915,6 +915,43 @@ button:disabled {
   margin-top: 0.4rem;
 }
 
+.resource-section-header {
+  align-items: end;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.resource-section-copy {
+  margin: 0;
+}
+
+.resource-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: flex-end;
+}
+
+.filter-chip {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+  color: var(--text-soft);
+  min-height: 38px;
+  padding: 0.65rem 1rem;
+}
+
+.filter-chip:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+
+.filter-chip-active {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+  color: #fffdf8;
+}
+
 .empty-state {
   max-width: 720px;
 }
@@ -1027,6 +1064,27 @@ button:disabled {
   gap: 1rem;
 }
 
+.admin-panel-header {
+  align-items: end;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.admin-panel-count {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.admin-panel-search {
+  min-width: 260px;
+}
+
+.admin-panel-search input {
+  min-height: 42px;
+}
+
 .admin-scroll-panel::-webkit-scrollbar {
   width: 10px;
 }
@@ -1108,6 +1166,46 @@ button:disabled {
   padding: 0.45rem 0.75rem;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.resource-type-badge span[aria-hidden="true"] {
+  display: none;
+}
+
+.resource-badge-course {
+  background: rgba(103, 210, 255, 0.12);
+  border-color: rgba(103, 210, 255, 0.2);
+  color: #bdeeff;
+}
+
+.resource-badge-project {
+  background: rgba(255, 177, 92, 0.12);
+  border-color: rgba(255, 177, 92, 0.2);
+  color: #ffd39a;
+}
+
+.resource-badge-article {
+  background: rgba(171, 134, 255, 0.14);
+  border-color: rgba(171, 134, 255, 0.22);
+  color: #dac6ff;
+}
+
+.resource-badge-video {
+  background: rgba(111, 228, 190, 0.14);
+  border-color: rgba(111, 228, 190, 0.2);
+  color: #c9fff0;
+}
+
+.resource-badge-certification {
+  background: rgba(255, 122, 122, 0.14);
+  border-color: rgba(255, 122, 122, 0.2);
+  color: #ffd1d1;
+}
+
+.resource-badge-documentation {
+  background: rgba(148, 167, 201, 0.16);
+  border-color: rgba(148, 167, 201, 0.22);
+  color: #dbe6fb;
 }
 
 .roadmap-card p,
@@ -1246,7 +1344,9 @@ button:disabled {
   .result-card-top,
   .skills-header,
   .admin-skill-form-header,
-  .admin-skill-row {
+  .admin-skill-row,
+  .admin-panel-header,
+  .resource-section-header {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -1268,5 +1368,14 @@ button:disabled {
 
   .admin-skill-list {
     max-height: none;
+  }
+
+  .admin-panel-search {
+    min-width: 100%;
+    width: 100%;
+  }
+
+  .resource-filter-row {
+    justify-content: flex-start;
   }
 }

@@ -2,6 +2,16 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { fetchCareer } from "../lib/api";
 
+const resourceTypeMeta = {
+  all: { label: "All" },
+  course: { label: "Course" },
+  project: { label: "Project" },
+  article: { label: "Article" },
+  video: { label: "Video" },
+  certification: { label: "Certification" },
+  documentation: { label: "Documentation" }
+};
+
 function normalizeError(error) {
   if (error instanceof Error) {
     return error.message;
@@ -14,6 +24,7 @@ export default function CareerDetailPage() {
   const [career, setCareer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedResourceType, setSelectedResourceType] = useState("all");
 
   useEffect(() => {
     let ignore = false;
@@ -39,6 +50,10 @@ export default function CareerDetailPage() {
     return () => {
       ignore = true;
     };
+  }, [careerId]);
+
+  useEffect(() => {
+    setSelectedResourceType("all");
   }, [careerId]);
 
   if (loading) {
@@ -71,6 +86,14 @@ export default function CareerDetailPage() {
   const careerSkills = career.required_skills || [];
   const requiredSkills = careerSkills.filter((item) => item.is_required);
   const supportSkills = careerSkills.filter((item) => !item.is_required);
+  const availableResourceTypes = [
+    "all",
+    ...new Set(careerResources.map((resource) => resource.resource_type).filter(Boolean))
+  ];
+  const visibleResources =
+    selectedResourceType === "all"
+      ? careerResources
+      : careerResources.filter((resource) => resource.resource_type === selectedResourceType);
 
   return (
     <div className="page">
@@ -142,10 +165,32 @@ export default function CareerDetailPage() {
       </section>
 
       <section className="section">
-        <p className="section-label">Roadmap resources</p>
+        <div className="resource-section-header">
+          <div>
+            <p className="section-label">Roadmap resources</p>
+            <p className="page-copy resource-section-copy">
+              Filter this roadmap by resource type to focus on the learning format you want.
+            </p>
+          </div>
+          <div className="resource-filter-row">
+            {availableResourceTypes.map((type) => {
+              const meta = resourceTypeMeta[type] || { label: type };
+              return (
+                <button
+                  className={`filter-chip ${selectedResourceType === type ? "filter-chip-active" : ""}`}
+                  key={type}
+                  onClick={() => setSelectedResourceType(type)}
+                  type="button"
+                >
+                  {meta.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
         <div className="resource-grid">
-          {careerResources.length ? (
-            careerResources.map((resource) => (
+          {visibleResources.length ? (
+            visibleResources.map((resource) => (
               <a
                 className="resource-card"
                 href={resource.url}
@@ -161,14 +206,18 @@ export default function CareerDetailPage() {
                       {resource.difficulty_level || "all levels"}
                     </p>
                   </div>
-                  <span className="score-pill">{resource.resource_type}</span>
+                  <span className={`score-pill resource-type-badge resource-badge-${resource.resource_type}`}>
+                    {resourceTypeMeta[resource.resource_type]?.label || resource.resource_type}
+                  </span>
                 </div>
               </a>
             ))
           ) : (
             <div className="empty-state">
-              <h2>No resources yet</h2>
-              <p className="page-copy">This career does not have linked roadmap resources yet.</p>
+              <h2>No matching resources</h2>
+              <p className="page-copy">
+                Try a different filter to view more roadmap resources for this career.
+              </p>
             </div>
           )}
         </div>

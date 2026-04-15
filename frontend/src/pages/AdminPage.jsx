@@ -17,6 +17,15 @@ import {
   updateAdminSkill
 } from "../lib/api";
 
+const resourceTypeMeta = {
+  course: { icon: "◎", label: "Course", className: "resource-badge-course" },
+  project: { icon: "◧", label: "Project", className: "resource-badge-project" },
+  article: { icon: "◫", label: "Article", className: "resource-badge-article" },
+  video: { icon: "▶", label: "Video", className: "resource-badge-video" },
+  certification: { icon: "★", label: "Certification", className: "resource-badge-certification" },
+  documentation: { icon: "≣", label: "Documentation", className: "resource-badge-documentation" }
+};
+
 function normalizeError(error) {
   if (error instanceof Error) {
     return error.message;
@@ -39,6 +48,8 @@ export default function AdminPage() {
   const [editingSkillId, setEditingSkillId] = useState(null);
   const [editingCareerId, setEditingCareerId] = useState(null);
   const [editingResourceId, setEditingResourceId] = useState(null);
+  const [skillSearch, setSkillSearch] = useState("");
+  const [resourceSearch, setResourceSearch] = useState("");
 
   const [skillForm, setSkillForm] = useState({
     name: "",
@@ -68,6 +79,20 @@ export default function AdminPage() {
   });
 
   const isAdmin = user?.role === "admin";
+  const normalizedSkillSearch = skillSearch.trim().toLowerCase();
+  const normalizedResourceSearch = resourceSearch.trim().toLowerCase();
+  const visibleSkills = skills.filter((skill) => {
+    if (!normalizedSkillSearch) return true;
+    return `${skill.name} ${skill.description || ""} ${skill.category || ""}`
+      .toLowerCase()
+      .includes(normalizedSkillSearch);
+  });
+  const visibleResources = resources.filter((resource) => {
+    if (!normalizedResourceSearch) return true;
+    return `${resource.title} ${resource.provider || ""} ${resource.resource_type || ""}`
+      .toLowerCase()
+      .includes(normalizedResourceSearch);
+  });
 
   function jumpToForm(formRef) {
     window.requestAnimationFrame(() => {
@@ -764,9 +789,22 @@ export default function AdminPage() {
 
           <section className="admin-grid">
             <article className="result-card admin-scroll-panel">
-              <p className="section-label">Skills</p>
+              <div className="admin-panel-header">
+                <div>
+                  <p className="section-label">Skills</p>
+                  <p className="admin-panel-count">{visibleSkills.length} visible</p>
+                </div>
+                <label className="field admin-panel-search">
+                  <span>Search</span>
+                  <input
+                    placeholder="Python, SQL, communication..."
+                    value={skillSearch}
+                    onChange={(event) => setSkillSearch(event.target.value)}
+                  />
+                </label>
+              </div>
               <div className="admin-skill-list">
-              {skills.map((skill) => (
+              {visibleSkills.map((skill) => (
                 <div
                   className={`gap-item admin-skill-item ${editingSkillId === skill.id ? "admin-skill-item-active" : ""}`}
                   key={skill.id}
@@ -810,16 +848,37 @@ export default function AdminPage() {
             </article>
 
             <article className="result-card admin-scroll-panel">
-              <p className="section-label">Resources</p>
+              <div className="admin-panel-header">
+                <div>
+                  <p className="section-label">Resources</p>
+                  <p className="admin-panel-count">{visibleResources.length} visible</p>
+                </div>
+                <label className="field admin-panel-search">
+                  <span>Search</span>
+                  <input
+                    placeholder="course, docs, certification..."
+                    value={resourceSearch}
+                    onChange={(event) => setResourceSearch(event.target.value)}
+                  />
+                </label>
+              </div>
               <div className="admin-skill-list">
-              {resources.map((resource) => (
+              {visibleResources.map((resource) => {
+                const meta = resourceTypeMeta[resource.resource_type] || {
+                  icon: "•",
+                  label: resource.resource_type,
+                  className: ""
+                };
+                return (
                 <div className="gap-item admin-skill-item" key={resource.id}>
                   <div className="admin-skill-row">
                     <div className="admin-skill-copy">
                       <strong>{resource.title}</strong>
                       <p>{resource.provider || resource.resource_type}</p>
                     </div>
-                    <span className="admin-category-badge">{resource.resource_type}</span>
+                    <span className={`admin-category-badge resource-type-badge ${meta.className}`}>
+                      <span aria-hidden="true">{meta.icon}</span> {meta.label}
+                    </span>
                   </div>
                   <div className="history-actions">
                     <button
@@ -852,7 +911,8 @@ export default function AdminPage() {
                     </button>
                   </div>
                 </div>
-              ))}
+                );
+              })}
               </div>
             </article>
           </section>
