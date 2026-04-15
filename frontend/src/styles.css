@@ -780,7 +780,6 @@ button:disabled {
 
 .admin-scroll-panel {
   max-height: 980px;
-  min-height: 980px;
   overflow-y: auto;
   padding-right: 0.55rem;
 }
