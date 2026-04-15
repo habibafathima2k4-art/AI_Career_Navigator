@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { fetchCareer } from "../lib/api";
+import { useAuth } from "../lib/AuthContext";
 
 const resourceTypeMeta = {
   all: { label: "All" },
@@ -12,6 +13,37 @@ const resourceTypeMeta = {
   documentation: { label: "Documentation" }
 };
 
+const progressLabelMap = {
+  saved: "Saved",
+  in_progress: "In progress",
+  completed: "Completed"
+};
+
+function getProgressStorageKey(userId) {
+  return `ai-career-navigator-progress-${userId || "guest"}`;
+}
+
+function readStoredProgress(userId) {
+  if (typeof window === "undefined") {
+    return {};
+  }
+
+  try {
+    const raw = window.localStorage.getItem(getProgressStorageKey(userId));
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function writeStoredProgress(userId, value) {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  window.localStorage.setItem(getProgressStorageKey(userId), JSON.stringify(value));
+}
+
 function normalizeError(error) {
   if (error instanceof Error) {
     return error.message;
@@ -21,10 +53,12 @@ function normalizeError(error) {
 
 export default function CareerDetailPage() {
   const { careerId } = useParams();
+  const { user } = useAuth();
   const [career, setCareer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [selectedResourceType, setSelectedResourceType] = useState("all");
+  const [resourceProgress, setResourceProgress] = useState({});
 
   useEffect(() => {
     let ignore = false;
@@ -55,6 +89,10 @@ export default function CareerDetailPage() {
   useEffect(() => {
     setSelectedResourceType("all");
   }, [careerId]);
+
+  useEffect(() => {
+    setResourceProgress(readStoredProgress(user?.id));
+  }, [user?.id]);
 
   if (loading) {
     return (
@@ -94,6 +132,32 @@ export default function CareerDetailPage() {
     selectedResourceType === "all"
       ? careerResources
       : careerResources.filter((resource) => resource.resource_type === selectedResourceType);
+  const progressSummary = careerResources.reduce(
+    (summary, resource) => {
+      const status = resourceProgress[resource.id];
+      if (status && summary[status] !== undefined) {
+        summary[status] += 1;
+      }
+      return summary;
+    },
+    { saved: 0, in_progress: 0, completed: 0 }
+  );
+
+  function updateResourceProgress(resourceId, status) {
+    setResourceProgress((current) => {
+      const next = {
+        ...current,
+        [resourceId]: current[resourceId] === status ? undefined : status
+      };
+
+      if (!next[resourceId]) {
+        delete next[resourceId];
+      }
+
+      writeStoredProgress(user?.id, next);
+      return next;
+    });
+  }
 
   return (
     <div className="page">
@@ -172,20 +236,33 @@ export default function CareerDetailPage() {
               Filter this roadmap by resource type to focus on the learning format you want.
             </p>
           </div>
-          <div className="resource-filter-row">
-            {availableResourceTypes.map((type) => {
-              const meta = resourceTypeMeta[type] || { label: type };
-              return (
-                <button
-                  className={`filter-chip ${selectedResourceType === type ? "filter-chip-active" : ""}`}
-                  key={type}
-                  onClick={() => setSelectedResourceType(type)}
-                  type="button"
-                >
-                  {meta.label}
-                </button>
-              );
-            })}
+          <div className="resource-controls">
+            <div className="resource-filter-row">
+              {availableResourceTypes.map((type) => {
+                const meta = resourceTypeMeta[type] || { label: type };
+                const count =
+                  type === "all"
+                    ? careerResources.length
+                    : careerResources.filter((resource) => resource.resource_type === type).length;
+                return (
+                  <button
+                    className={`filter-chip ${selectedResourceType === type ? "filter-chip-active" : ""}`}
+                    key={type}
+                    onClick={() => setSelectedResourceType(type)}
+                    type="button"
+                  >
+                    {meta.label} ({count})
+                  </button>
+                );
+              })}
+            </div>
+            <div className="progress-summary-row">
+              {Object.entries(progressLabelMap).map(([status, label]) => (
+                <span className={`progress-summary-chip progress-chip-${status}`} key={status}>
+                  {label}: {progressSummary[status]}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
         <div className="resource-grid">
@@ -209,6 +286,22 @@ export default function CareerDetailPage() {
                   <span className={`score-pill resource-type-badge resource-badge-${resource.resource_type}`}>
                     {resourceTypeMeta[resource.resource_type]?.label || resource.resource_type}
                   </span>
+                </div>
+                <div className="resource-progress-row">
+                  {Object.entries(progressLabelMap).map(([status, label]) => (
+                    <button
+                      className={`progress-chip ${resourceProgress[resource.id] === status ? "progress-chip-active" : ""} progress-chip-${status}`}
+                      key={status}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        updateResourceProgress(resource.id, status);
+                      }}
+                      type="button"
+                    >
+                      {label}
+                    </button>
+                  ))}
                 </div>
               </a>
             ))
