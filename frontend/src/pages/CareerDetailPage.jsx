@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { fetchCareer, readStoredResourceProgress, writeStoredResourceProgress } from "../lib/api";
+import {
+  clearResourceProgress,
+  fetchCareer,
+  fetchResourceProgress,
+  updateResourceProgress as persistResourceProgress
+} from "../lib/api";
 import { useAuth } from "../lib/AuthContext";
 
 const resourceTypeMeta = {
@@ -14,7 +19,7 @@ const resourceTypeMeta = {
 };
 
 const progressLabelMap = {
-  saved: "Saved",
+  not_started: "Saved",
   in_progress: "In progress",
   completed: "Completed"
 };
@@ -40,9 +45,15 @@ export default function CareerDetailPage() {
 
     async function loadCareer() {
       try {
-        const response = await fetchCareer(careerId);
+        const [response, progressResponse] = await Promise.all([
+          fetchCareer(careerId),
+          user ? fetchResourceProgress({ careerId }) : Promise.resolve([])
+        ]);
         if (!ignore) {
           setCareer(response);
+          setResourceProgress(
+            Object.fromEntries(progressResponse.map((entry) => [entry.resource_id, entry.status]))
+          );
         }
       } catch (loadError) {
         if (!ignore) {
@@ -59,15 +70,11 @@ export default function CareerDetailPage() {
     return () => {
       ignore = true;
     };
-  }, [careerId]);
+  }, [careerId, user]);
 
   useEffect(() => {
     setSelectedResourceType("all");
   }, [careerId]);
-
-  useEffect(() => {
-    setResourceProgress(readStoredResourceProgress(user?.id));
-  }, [user?.id]);
 
   if (loading) {
     return (
@@ -115,23 +122,46 @@ export default function CareerDetailPage() {
       }
       return summary;
     },
-    { saved: 0, in_progress: 0, completed: 0 }
+    { not_started: 0, in_progress: 0, completed: 0 }
   );
 
-  function updateResourceProgress(resourceId, status) {
-    setResourceProgress((current) => {
-      const next = {
-        ...current,
-        [resourceId]: current[resourceId] === status ? undefined : status
-      };
+  async function updateResourceProgress(resourceId, status) {
+    if (!user) {
+      setError("Login to save roadmap progress across devices.");
+      return;
+    }
 
-      if (!next[resourceId]) {
+    const previous = resourceProgress[resourceId];
+    const nextStatus = previous === status ? null : status;
+
+    setResourceProgress((current) => {
+      const next = { ...current };
+      if (nextStatus) {
+        next[resourceId] = nextStatus;
+      } else {
         delete next[resourceId];
       }
-
-      writeStoredResourceProgress(user?.id, next);
       return next;
     });
+
+    try {
+      if (nextStatus) {
+        await persistResourceProgress(resourceId, nextStatus);
+      } else {
+        await clearResourceProgress(resourceId);
+      }
+    } catch (progressError) {
+      setResourceProgress((current) => {
+        const reverted = { ...current };
+        if (previous) {
+          reverted[resourceId] = previous;
+        } else {
+          delete reverted[resourceId];
+        }
+        return reverted;
+      });
+      setError(normalizeError(progressError));
+    }
   }
 
   return (
@@ -210,6 +240,11 @@ export default function CareerDetailPage() {
             <p className="page-copy resource-section-copy">
               Filter this roadmap by resource type to focus on the learning format you want.
             </p>
+            {!user ? (
+              <p className="page-copy resource-section-copy">
+                Login to save progress across devices.
+              </p>
+            ) : null}
           </div>
           <div className="resource-controls">
             <div className="resource-filter-row">

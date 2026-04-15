@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../lib/AuthContext";
-import { fetchAssessments, readStoredResourceProgress } from "../lib/api";
+import { fetchAssessments, fetchResourceProgress } from "../lib/api";
 
 function normalizeError(error) {
   if (error instanceof Error) {
@@ -15,15 +15,16 @@ export default function HistoryPage() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const progressEntries = Object.values(readStoredResourceProgress(user?.id));
+  const [progressEntries, setProgressEntries] = useState([]);
   const progressSummary = progressEntries.reduce(
-    (summary, status) => {
+    (summary, entry) => {
+      const status = entry.status;
       if (summary[status] !== undefined) {
         summary[status] += 1;
       }
       return summary;
     },
-    { saved: 0, in_progress: 0, completed: 0 }
+    { not_started: 0, in_progress: 0, completed: 0 }
   );
 
   useEffect(() => {
@@ -31,6 +32,7 @@ export default function HistoryPage() {
 
     if (!isAuthenticated) {
       setItems([]);
+      setProgressEntries([]);
       setLoading(false);
       setError("");
       return () => {
@@ -40,9 +42,13 @@ export default function HistoryPage() {
 
     async function loadHistory() {
       try {
-        const response = await fetchAssessments();
+        const [response, progressResponse] = await Promise.all([
+          fetchAssessments(),
+          fetchResourceProgress()
+        ]);
         if (!ignore) {
           setItems(response);
+          setProgressEntries(progressResponse);
         }
       } catch (loadError) {
         if (!ignore) {
@@ -75,7 +81,7 @@ export default function HistoryPage() {
         <section className="metric-row">
           <article className="metric-card">
             <span>Saved resources</span>
-            <strong>{progressSummary.saved}</strong>
+            <strong>{progressSummary.not_started}</strong>
           </article>
           <article className="metric-card">
             <span>In progress</span>

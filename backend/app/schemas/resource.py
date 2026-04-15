@@ -1,4 +1,4 @@
-from app.models.enums import ResourceTypeEnum, SkillCategoryEnum
+from app.models.enums import ProgressStatusEnum, ResourceTypeEnum, SkillCategoryEnum
 from pydantic import BaseModel, Field
 from app.schemas.common import ORMModel, TimestampedSchema
 
@@ -31,3 +31,15 @@ class LearningResourceCreate(BaseModel):
     is_active: bool = True
     skill_id: int | None = Field(default=None, gt=0)
     career_id: int | None = Field(default=None, gt=0)
+
+
+class ResourceProgressUpdate(BaseModel):
+    status: ProgressStatusEnum
+
+
+class ResourceProgressResponse(TimestampedSchema):
+    id: int
+    user_id: int
+    resource_id: int | None = None
+    skill_id: int | None = None
+    status: ProgressStatusEnum

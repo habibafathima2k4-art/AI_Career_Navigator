@@ -1,8 +1,6 @@
 const fallbackApiUrl = "http://localhost:8000/api";
 const tokenStorageKey = "ai-career-navigator-token";
 const userStorageKey = "ai-career-navigator-user";
-const progressStorageKeyPrefix = "ai-career-navigator-progress-";
-
 export function getApiBaseUrl() {
   return import.meta.env.VITE_API_BASE_URL || fallbackApiUrl;
 }
@@ -26,22 +24,6 @@ export function clearAuthSession() {
   window.localStorage.removeItem(userStorageKey);
 }
 
-export function readStoredResourceProgress(userId) {
-  try {
-    const raw = window.localStorage.getItem(`${progressStorageKeyPrefix}${userId || "guest"}`);
-    return raw ? JSON.parse(raw) : {};
-  } catch {
-    return {};
-  }
-}
-
-export function writeStoredResourceProgress(userId, value) {
-  window.localStorage.setItem(
-    `${progressStorageKeyPrefix}${userId || "guest"}`,
-    JSON.stringify(value)
-  );
-}
-
 async function apiRequest(path, options = {}) {
   const token = getStoredToken();
   const response = await fetch(`${getApiBaseUrl()}${path}`, {
@@ -56,6 +38,10 @@ async function apiRequest(path, options = {}) {
   if (!response.ok) {
     const errorText = await response.text();
     throw new Error(errorText || `API request failed with ${response.status}`);
+  }
+
+  if (response.status === 204) {
+    return null;
   }
 
   return response.json();
@@ -91,6 +77,26 @@ export function fetchResources({ careerId, skillId, limit } = {}) {
   if (limit) params.set("limit", limit);
   const suffix = params.toString() ? `?${params.toString()}` : "";
   return apiRequest(`/resources${suffix}`);
+}
+
+export function fetchResourceProgress({ careerId } = {}) {
+  const params = new URLSearchParams();
+  if (careerId) params.set("career_id", careerId);
+  const suffix = params.toString() ? `?${params.toString()}` : "";
+  return apiRequest(`/resources/progress${suffix}`);
+}
+
+export function updateResourceProgress(resourceId, status) {
+  return apiRequest(`/resources/${resourceId}/progress`, {
+    method: "PUT",
+    body: JSON.stringify({ status })
+  });
+}
+
+export function clearResourceProgress(resourceId) {
+  return apiRequest(`/resources/${resourceId}/progress`, {
+    method: "DELETE"
+  });
 }
 
 export function registerUser(payload) {
