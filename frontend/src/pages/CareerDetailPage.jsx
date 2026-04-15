@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { fetchCareer } from "../lib/api";
+import { fetchCareer, readStoredResourceProgress, writeStoredResourceProgress } from "../lib/api";
 import { useAuth } from "../lib/AuthContext";
 
 const resourceTypeMeta = {
@@ -18,31 +18,6 @@ const progressLabelMap = {
   in_progress: "In progress",
   completed: "Completed"
 };
-
-function getProgressStorageKey(userId) {
-  return `ai-career-navigator-progress-${userId || "guest"}`;
-}
-
-function readStoredProgress(userId) {
-  if (typeof window === "undefined") {
-    return {};
-  }
-
-  try {
-    const raw = window.localStorage.getItem(getProgressStorageKey(userId));
-    return raw ? JSON.parse(raw) : {};
-  } catch {
-    return {};
-  }
-}
-
-function writeStoredProgress(userId, value) {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  window.localStorage.setItem(getProgressStorageKey(userId), JSON.stringify(value));
-}
 
 function normalizeError(error) {
   if (error instanceof Error) {
@@ -91,7 +66,7 @@ export default function CareerDetailPage() {
   }, [careerId]);
 
   useEffect(() => {
-    setResourceProgress(readStoredProgress(user?.id));
+    setResourceProgress(readStoredResourceProgress(user?.id));
   }, [user?.id]);
 
   if (loading) {
@@ -154,7 +129,7 @@ export default function CareerDetailPage() {
         delete next[resourceId];
       }
 
-      writeStoredProgress(user?.id, next);
+      writeStoredResourceProgress(user?.id, next);
       return next;
     });
   }

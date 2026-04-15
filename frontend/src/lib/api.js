@@ -1,6 +1,7 @@
 const fallbackApiUrl = "http://localhost:8000/api";
 const tokenStorageKey = "ai-career-navigator-token";
 const userStorageKey = "ai-career-navigator-user";
+const progressStorageKeyPrefix = "ai-career-navigator-progress-";
 
 export function getApiBaseUrl() {
   return import.meta.env.VITE_API_BASE_URL || fallbackApiUrl;
@@ -23,6 +24,22 @@ export function persistAuthSession(token, user) {
 export function clearAuthSession() {
   window.localStorage.removeItem(tokenStorageKey);
   window.localStorage.removeItem(userStorageKey);
+}
+
+export function readStoredResourceProgress(userId) {
+  try {
+    const raw = window.localStorage.getItem(`${progressStorageKeyPrefix}${userId || "guest"}`);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+export function writeStoredResourceProgress(userId, value) {
+  window.localStorage.setItem(
+    `${progressStorageKeyPrefix}${userId || "guest"}`,
+    JSON.stringify(value)
+  );
 }
 
 async function apiRequest(path, options = {}) {

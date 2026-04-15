@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../lib/AuthContext";
-import { fetchAssessments } from "../lib/api";
+import { fetchAssessments, readStoredResourceProgress } from "../lib/api";
 
 function normalizeError(error) {
   if (error instanceof Error) {
@@ -11,10 +11,20 @@ function normalizeError(error) {
 }
 
 export default function HistoryPage() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const progressEntries = Object.values(readStoredResourceProgress(user?.id));
+  const progressSummary = progressEntries.reduce(
+    (summary, status) => {
+      if (summary[status] !== undefined) {
+        summary[status] += 1;
+      }
+      return summary;
+    },
+    { saved: 0, in_progress: 0, completed: 0 }
+  );
 
   useEffect(() => {
     let ignore = false;
@@ -60,6 +70,23 @@ export default function HistoryPage() {
           Reopen any recommendation set and compare how your profile evolves over time.
         </p>
       </section>
+
+      {isAuthenticated ? (
+        <section className="metric-row">
+          <article className="metric-card">
+            <span>Saved resources</span>
+            <strong>{progressSummary.saved}</strong>
+          </article>
+          <article className="metric-card">
+            <span>In progress</span>
+            <strong>{progressSummary.in_progress}</strong>
+          </article>
+          <article className="metric-card">
+            <span>Completed</span>
+            <strong>{progressSummary.completed}</strong>
+          </article>
+        </section>
+      ) : null}
 
       {!isAuthenticated ? (
         <section className="empty-state">
@@ -123,6 +150,11 @@ export default function HistoryPage() {
                 <Link className="primary-link" to={`/results/${item.id}`}>
                   View results
                 </Link>
+                {item.top_recommendation?.career_id ? (
+                  <Link className="ghost-link" to={`/careers/${item.top_recommendation.career_id}`}>
+                    Continue roadmap
+                  </Link>
+                ) : null}
               </div>
             </article>
           ))}
