@@ -45,10 +45,17 @@ export default function CareerDetailPage() {
 
     async function loadCareer() {
       try {
-        const [response, progressResponse] = await Promise.all([
-          fetchCareer(careerId),
-          user ? fetchResourceProgress({ careerId }) : Promise.resolve([])
-        ]);
+        const response = await fetchCareer(careerId);
+        let progressResponse = [];
+
+        if (user) {
+          try {
+            progressResponse = await fetchResourceProgress({ careerId });
+          } catch {
+            progressResponse = [];
+          }
+        }
+
         if (!ignore) {
           setCareer(response);
           setResourceProgress(
