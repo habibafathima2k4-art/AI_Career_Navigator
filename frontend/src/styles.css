@@ -1320,6 +1320,48 @@ button:disabled {
   color: #fff8f7;
 }
 
+.admin-category-badge.resource-badge-course,
+.score-pill.resource-badge-course {
+  background: rgba(103, 210, 255, 0.12);
+  border-color: rgba(103, 210, 255, 0.2);
+  color: #bdeeff;
+}
+
+.admin-category-badge.resource-badge-project,
+.score-pill.resource-badge-project {
+  background: rgba(255, 177, 92, 0.12);
+  border-color: rgba(255, 177, 92, 0.2);
+  color: #ffd39a;
+}
+
+.admin-category-badge.resource-badge-article,
+.score-pill.resource-badge-article {
+  background: rgba(171, 134, 255, 0.14);
+  border-color: rgba(171, 134, 255, 0.22);
+  color: #dac6ff;
+}
+
+.admin-category-badge.resource-badge-video,
+.score-pill.resource-badge-video {
+  background: rgba(111, 228, 190, 0.14);
+  border-color: rgba(111, 228, 190, 0.2);
+  color: #c9fff0;
+}
+
+.admin-category-badge.resource-badge-certification,
+.score-pill.resource-badge-certification {
+  background: rgba(255, 122, 122, 0.14);
+  border-color: rgba(255, 122, 122, 0.2);
+  color: #ffd1d1;
+}
+
+.admin-category-badge.resource-badge-documentation,
+.score-pill.resource-badge-documentation {
+  background: rgba(148, 167, 201, 0.16);
+  border-color: rgba(148, 167, 201, 0.22);
+  color: #dbe6fb;
+}
+
 @media (max-width: 900px) {
   .hero,
   .career-detail-grid,
