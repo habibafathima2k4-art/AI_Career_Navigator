@@ -1280,6 +1280,30 @@ button:disabled {
   color: #dbe6fb;
 }
 
+.skill-badge-technical {
+  background: rgba(103, 210, 255, 0.12);
+  border-color: rgba(103, 210, 255, 0.2);
+  color: #bdeeff;
+}
+
+.skill-badge-domain {
+  background: rgba(255, 177, 92, 0.12);
+  border-color: rgba(255, 177, 92, 0.2);
+  color: #ffd39a;
+}
+
+.skill-badge-soft {
+  background: rgba(111, 228, 190, 0.14);
+  border-color: rgba(111, 228, 190, 0.2);
+  color: #c9fff0;
+}
+
+.skill-badge-tool {
+  background: rgba(171, 134, 255, 0.14);
+  border-color: rgba(171, 134, 255, 0.22);
+  color: #dac6ff;
+}
+
 .roadmap-card p,
 .phase-card p {
   color: var(--text-soft);

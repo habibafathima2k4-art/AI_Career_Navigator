@@ -814,7 +814,9 @@ export default function AdminPage() {
                       <strong>{skill.name}</strong>
                       <p>{skill.description || "No description added yet."}</p>
                     </div>
-                    <span className="admin-category-badge">{skill.category}</span>
+                    <span className={`admin-category-badge skill-category-badge skill-badge-${skill.category}`}>
+                      {skill.category}
+                    </span>
                   </div>
                   <div className="history-actions">
                     <button
