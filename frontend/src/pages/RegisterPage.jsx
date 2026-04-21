@@ -13,6 +13,7 @@ export default function RegisterPage() {
     experience_level: "beginner"
   });
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -51,15 +52,26 @@ export default function RegisterPage() {
             <span>Email</span>
             <input name="email" type="email" value={form.email} onChange={handleChange} required />
           </label>
-          <label className="field">
+          <label className="field password-field">
             <span>Password</span>
-            <input
-              name="password"
-              type="password"
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
+            <div className="password-input-wrap">
+              <input
+                name="password"
+                type={showPassword ? "text" : "password"}
+                value={form.password}
+                onChange={handleChange}
+                required
+              />
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setShowPassword((current) => !current)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                aria-pressed={showPassword}
+              >
+                {showPassword ? "🙈" : "👁"}
+              </button>
+            </div>
           </label>
           <label className="field">
             <span>Education</span>
