@@ -1,130 +1,215 @@
 # AI Career Navigator
 
-AI Career Navigator is a full-stack career guidance platform with:
+AI Career Navigator is a full-stack web application that helps users discover suitable career paths through guided assessment, ranked recommendations, roadmap resources, and progress tracking.
 
-- React + Vite frontend
-- FastAPI backend
-- PostgreSQL database
-- assessment-driven recommendations
-- roadmap resources
-- private user history
-- admin CRUD + analytics
+The platform is built for students and early professionals who want clearer direction about which career fits their profile, what skills they already have, what gaps remain, and which learning resources can help them move forward.
 
-## Project structure
+## Live Deployment
 
-```text
-frontend/  React client
-backend/   FastAPI app
-```
+- Frontend: [AI Career Navigator](https://ai-career-navigator-gules.vercel.app)
+- Backend API: [Render Backend](https://ai-career-navigator-backend-ax95.onrender.com)
+- API Docs: [Swagger UI](https://ai-career-navigator-backend-ax95.onrender.com/docs)
+- Source Code: [GitHub Repository](https://github.com/habibafathima2k4-art/AI_Career_Navigator)
 
-## Local development
+## Key Features
+
+- User registration and login
+- Guided career assessment based on interests, education, experience, work style, salary goals, and skills
+- Ranked career recommendations with fit score and confidence score
+- Career detail pages with salary range, growth outlook, core skills, and support skills
+- Roadmap resources across courses, projects, articles, videos, certifications, and documentation
+- Roadmap progress tracking with saved, in-progress, and completed states
+- Assessment history and progress summary dashboard
+- Admin dashboard for managing careers, skills, and roadmap resources
+- Backend API documentation through Swagger
+
+## Technology Stack
 
 ### Frontend
 
-```powershell
-cd frontend
-npm install
-npm run dev
-```
+- React
+- Vite
+- React Router
+- Custom CSS
 
 ### Backend
+
+- FastAPI
+- SQLAlchemy
+- Pydantic
+- Psycopg
+
+### Database and Deployment
+
+- PostgreSQL
+- Neon
+- Render
+- Vercel
+- GitHub
+
+## Project Structure
+
+```text
+AI_Career_Navigator/
+├── backend/      FastAPI backend application
+├── frontend/     React + Vite frontend
+├── docs/         Diagrams and documentation assets
+├── dataset/      Project dataset files
+├── README.md
+└── DEPLOYMENT.md
+```
+
+## Core Modules
+
+### 1. Authentication Module
+
+Handles user registration, login, protected access, and account-based history.
+
+### 2. Assessment Module
+
+Collects user profile inputs such as interest area, education level, experience level, preferred domain, work style, salary goal, and skill inventory.
+
+### 3. Recommendation Engine
+
+Matches user assessment data against stored careers and required skills to generate ranked recommendations.
+
+### 4. Career Detail and Roadmap Module
+
+Displays salary outlook, core and support skills, roadmap resources, resume suggestions, and project ideas for each career.
+
+### 5. Progress and History Module
+
+Stores resource progress and assessment history so users can revisit and continue their roadmap.
+
+### 6. Admin Module
+
+Allows admin users to manage careers, skills, and learning resources through CRUD operations.
+
+## Database Design
+
+Important tables used in the project:
+
+- `users`
+- `assessments`
+- `skills`
+- `careers`
+- `career_skills`
+- `learning_resources`
+- `recommendations`
+- `recommendation_skill_gaps`
+- `user_progress`
+
+## Local Setup
+
+## 1. Clone the repository
+
+```powershell
+git clone https://github.com/habibafathima2k4-art/AI_Career_Navigator.git
+cd AI_Career_Navigator
+```
+
+## 2. Backend setup
 
 ```powershell
 cd backend
 pip install -r requirements.txt
-python -m uvicorn app.main:app --reload
 ```
 
-### Database setup
+Create `backend/.env` from `backend/.env.example` and set:
+
+```env
+ENVIRONMENT=development
+APP_NAME=AI Career Navigator API
+API_PREFIX=/api
+DATABASE_URL=postgresql+psycopg://...
+SECRET_KEY=your-secret-key
+ALLOWED_ORIGINS=["http://localhost:5173"]
+```
+
+Initialize and seed the database:
 
 ```powershell
-cd backend
 python -m app.db.init_db
 python -m app.db.seed_db
 ```
 
-### Promote an admin user
+Start the backend:
+
+```powershell
+python -m uvicorn app.main:app --reload
+```
+
+## 3. Frontend setup
+
+Open a new terminal:
+
+```powershell
+cd frontend
+npm install
+```
+
+Create `frontend/.env` from `frontend/.env.example` and set:
+
+```env
+VITE_API_BASE_URL=http://localhost:8000/api
+```
+
+Start the frontend:
+
+```powershell
+npm run dev
+```
+
+## 4. Promote an admin user
+
+After registering your account, you can promote it locally with:
 
 ```powershell
 cd backend
 python -m app.db.promote_user your-email@example.com
 ```
 
-## Environment files
+## Deployment
 
-### Backend example
+Recommended production stack:
 
-Copy `backend/.env.example` to `backend/.env` and fill in production-safe values.
+- Frontend: Vercel
+- Backend: Render
+- Database: Neon PostgreSQL
 
-Key values:
+Detailed deployment instructions are available in [DEPLOYMENT.md](C:\Users\WIN11\OneDrive\Desktop\AI_Career_Navigator\DEPLOYMENT.md).
 
-- `ENVIRONMENT=development` or `production`
-- `DATABASE_URL=postgresql+psycopg://...`
-- `SECRET_KEY=<long random secret>`
-- `ALLOWED_ORIGINS=["https://your-frontend-domain.com"]`
+## Testing
 
-### Frontend example
+Backend progress API tests are included in:
 
-Copy `frontend/.env.example` to `frontend/.env`.
+- [backend/tests/test_resource_progress_api.py](C:\Users\WIN11\OneDrive\Desktop\AI_Career_Navigator\backend\tests\test_resource_progress_api.py)
 
-- `VITE_API_BASE_URL=https://your-backend-domain.com/api`
-
-## Deployment options
-
-### Recommended simple deployment
-
-Frontend:
-
-- deploy `frontend` to Vercel or Netlify
-- set `VITE_API_BASE_URL` to your deployed backend URL
-
-Backend:
-
-- deploy `backend` to Render, Railway, or Fly.io
-- start command:
-
-```text
-python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT
-```
-
-Database:
-
-- use managed PostgreSQL from Render, Railway, Neon, or Supabase
-- set `DATABASE_URL` in backend environment variables
-
-### Optional Docker deployment
-
-This repo includes:
-
-- `backend/Dockerfile`
-- `frontend/Dockerfile`
-- `docker-compose.yml`
-
-Run locally with Docker:
+Run tests with:
 
 ```powershell
-docker compose up --build
+cd backend
+python -m pytest tests\test_resource_progress_api.py -q
 ```
 
-Then initialize and seed the database from the backend container or your local backend shell.
+## Sample User Flow
 
-## Production checklist
+1. User registers or logs in.
+2. User completes the career assessment.
+3. User selects existing skills.
+4. System generates ranked career recommendations.
+5. User opens a career detail page.
+6. User explores roadmap resources and tracks progress.
+7. User revisits assessment history and continues roadmap work.
 
-Before going live:
+## Future Scope
 
-1. Set a strong `SECRET_KEY`
-2. Use a managed PostgreSQL instance
-3. Replace local `ALLOWED_ORIGINS` with your frontend domain
-4. Confirm admin access is limited to your own account
-5. Build the frontend with the production API URL
-6. Keep `.env` files out of version control
+- Career comparison view
+- Export recommendations as PDF
+- Notification or reminder support
+- Expanded backend test coverage
+- More advanced recommendation scoring
 
-## Recommended deployment stack
+## Author
 
-Use:
-
-- Vercel for `frontend`
-- Render for `backend`
-- Neon for PostgreSQL
-
-Detailed steps are in [DEPLOYMENT.md](C:\Users\WIN11\OneDrive\Desktop\AI_Career_Navigator\DEPLOYMENT.md).
+Developed as a full-stack academic project for career guidance and roadmap planning.
