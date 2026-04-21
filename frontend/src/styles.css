@@ -1035,7 +1035,9 @@ button:disabled {
   align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
   box-shadow: none;
+  color: var(--text-soft);
   display: inline-flex;
   font-size: 0.8rem;
   font-weight: 700;
@@ -1056,33 +1058,36 @@ button:disabled {
   color: #fffdf8;
 }
 
-.progress-chip-saved {
+.progress-chip.progress-chip-saved,
+.progress-summary-chip.progress-chip-saved {
   background: rgba(148, 167, 201, 0.14);
   border-color: rgba(148, 167, 201, 0.22);
   color: #dbe6fb;
 }
 
-.progress-chip-in_progress {
+.progress-chip.progress-chip-in_progress,
+.progress-summary-chip.progress-chip-in_progress {
   background: rgba(255, 177, 92, 0.14);
   border-color: rgba(255, 177, 92, 0.22);
   color: #ffd39a;
 }
 
-.progress-chip-completed {
+.progress-chip.progress-chip-completed,
+.progress-summary-chip.progress-chip-completed {
   background: rgba(111, 228, 190, 0.14);
   border-color: rgba(111, 228, 190, 0.2);
   color: #c9fff0;
 }
 
-.progress-chip-saved.progress-chip-active {
+.progress-chip.progress-chip-saved.progress-chip-active {
   background: linear-gradient(135deg, rgba(148, 167, 201, 0.95), rgba(112, 136, 176, 0.92));
 }
 
-.progress-chip-in_progress.progress-chip-active {
+.progress-chip.progress-chip-in_progress.progress-chip-active {
   background: linear-gradient(135deg, rgba(255, 177, 92, 0.96), rgba(234, 134, 52, 0.92));
 }
 
-.progress-chip-completed.progress-chip-active {
+.progress-chip.progress-chip-completed.progress-chip-active {
   background: linear-gradient(135deg, rgba(111, 228, 190, 0.95), rgba(50, 171, 137, 0.92));
 }
 
