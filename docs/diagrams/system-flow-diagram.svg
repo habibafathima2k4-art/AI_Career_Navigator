@@ -1,0 +1,79 @@
+<svg width="1600" height="1180" viewBox="0 0 1600 1180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1600" y2="1180" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7F9FC"/>
+      <stop offset="1" stop-color="#EEF3F8"/>
+    </linearGradient>
+    <linearGradient id="node" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#20314A"/>
+      <stop offset="1" stop-color="#36547C"/>
+    </linearGradient>
+    <filter id="shadow2" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#17263C" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10V0Z" fill="#55749E"/>
+    </marker>
+    <style>
+      .title{font:700 42px 'Segoe UI',Arial,sans-serif;fill:#20314A}
+      .subtitle{font:500 18px 'Segoe UI',Arial,sans-serif;fill:#5B708D}
+      .step{font:700 22px 'Segoe UI',Arial,sans-serif;fill:#FFFFFF}
+      .copy{font:500 18px 'Segoe UI',Arial,sans-serif;fill:#D7E4F5}
+      .small{font:600 16px 'Segoe UI',Arial,sans-serif;fill:#577191}
+    </style>
+  </defs>
+
+  <rect width="1600" height="1180" fill="url(#bg2)"/>
+  <text x="800" y="76" text-anchor="middle" class="title">System Flow - AI Career Navigator</text>
+  <text x="800" y="110" text-anchor="middle" class="subtitle">End-to-end user and admin interaction flow</text>
+
+  <g filter="url(#shadow2)">
+    <rect x="170" y="170" width="1260" height="120" rx="34" fill="url(#node)"/>
+    <text x="250" y="220" class="step">1. User opens platform and signs in</text>
+    <text x="250" y="256" class="copy">Register or log in to unlock private history, progress tracking, and personalized recommendations.</text>
+  </g>
+
+  <g filter="url(#shadow2)">
+    <rect x="170" y="340" width="1260" height="120" rx="34" fill="url(#node)"/>
+    <text x="250" y="390" class="step">2. User completes the live assessment</text>
+    <text x="250" y="426" class="copy">The system captures interest area, education, experience level, preferred domain, work style, salary goal, and selected skills.</text>
+  </g>
+
+  <g filter="url(#shadow2)">
+    <rect x="170" y="510" width="1260" height="120" rx="34" fill="url(#node)"/>
+    <text x="250" y="560" class="step">3. Recommendation engine evaluates fit</text>
+    <text x="250" y="596" class="copy">Assessment data is compared with stored careers, required skills, and weighting rules to rank the strongest career matches.</text>
+  </g>
+
+  <g filter="url(#shadow2)">
+    <rect x="170" y="680" width="1260" height="120" rx="34" fill="url(#node)"/>
+    <text x="250" y="730" class="step">4. User views results and opens a career path</text>
+    <text x="250" y="766" class="copy">Top recommendations, fit scores, confidence, comparison insights, and explainable reasoning are displayed.</text>
+  </g>
+
+  <g filter="url(#shadow2)">
+    <rect x="170" y="850" width="1260" height="120" rx="34" fill="url(#node)"/>
+    <text x="250" y="900" class="step">5. User follows roadmap resources and tracks progress</text>
+    <text x="250" y="936" class="copy">Courses, projects, videos, articles, certifications, and documentation can be filtered and marked as saved, in progress, or completed.</text>
+  </g>
+
+  <line x1="800" y1="290" x2="800" y2="340" stroke="#55749E" stroke-width="4" marker-end="url(#arrow2)"/>
+  <line x1="800" y1="460" x2="800" y2="510" stroke="#55749E" stroke-width="4" marker-end="url(#arrow2)"/>
+  <line x1="800" y1="630" x2="800" y2="680" stroke="#55749E" stroke-width="4" marker-end="url(#arrow2)"/>
+  <line x1="800" y1="800" x2="800" y2="850" stroke="#55749E" stroke-width="4" marker-end="url(#arrow2)"/>
+
+  <g filter="url(#shadow2)">
+    <rect x="200" y="1015" width="560" height="110" rx="30" fill="#FFFFFF" stroke="#D8E1EC" stroke-width="2"/>
+    <text x="480" y="1060" text-anchor="middle" style="font:700 24px 'Segoe UI',Arial,sans-serif;fill:#20314A">6. History Dashboard</text>
+    <text x="480" y="1092" text-anchor="middle" class="small">Past assessments, progress totals, and continue-roadmap access</text>
+  </g>
+
+  <g filter="url(#shadow2)">
+    <rect x="840" y="1015" width="560" height="110" rx="30" fill="#FFFFFF" stroke="#D8E1EC" stroke-width="2"/>
+    <text x="1120" y="1060" text-anchor="middle" style="font:700 24px 'Segoe UI',Arial,sans-serif;fill:#20314A">7. Admin Management</text>
+    <text x="1120" y="1092" text-anchor="middle" class="small">Admin updates careers, skills, and resources that power future recommendations</text>
+  </g>
+
+  <line x1="600" y1="970" x2="520" y2="1015" stroke="#55749E" stroke-width="3" marker-end="url(#arrow2)"/>
+  <line x1="1000" y1="970" x2="1080" y2="1015" stroke="#55749E" stroke-width="3" marker-end="url(#arrow2)"/>
+</svg>

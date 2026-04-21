@@ -24,6 +24,135 @@ const progressLabelMap = {
   completed: "Completed"
 };
 
+const projectSuggestionLibrary = {
+  "ai engineer": [
+    {
+      title: "Inference API with model monitoring",
+      summary: "Build and deploy a model-serving API with request logging, confidence output, and simple monitoring dashboards."
+    },
+    {
+      title: "LLM workflow assistant",
+      summary: "Create a prompt-driven assistant with retrieval, evaluation notes, and structured output formatting."
+    }
+  ],
+  "data scientist": [
+    {
+      title: "End-to-end predictive model case study",
+      summary: "Prepare a full notebook-to-report pipeline including cleaning, feature engineering, model comparison, and recommendations."
+    },
+    {
+      title: "Experiment analysis dashboard",
+      summary: "Analyze A/B or historical business data and present findings through charts, metrics, and actionable insights."
+    }
+  ],
+  "data analyst": [
+    {
+      title: "Interactive KPI dashboard",
+      summary: "Design a dashboard that tracks core business metrics with filters, drill-downs, and stakeholder-friendly summaries."
+    },
+    {
+      title: "SQL reporting portfolio case",
+      summary: "Use SQL plus visualization tools to clean data, answer business questions, and present insights clearly."
+    }
+  ],
+  "bi analyst": [
+    {
+      title: "Executive reporting suite",
+      summary: "Create a BI dashboard package with trend views, regional filters, and presentation-ready KPI commentary."
+    },
+    {
+      title: "Data warehouse metrics model",
+      summary: "Model business metrics from raw tables and document how each dashboard KPI is defined and refreshed."
+    }
+  ],
+  "backend developer": [
+    {
+      title: "Production-ready REST API",
+      summary: "Build a secure backend with authentication, CRUD routes, validation, and database integration."
+    },
+    {
+      title: "Service integration project",
+      summary: "Connect third-party APIs, background tasks, and persistence layers in a maintainable backend architecture."
+    }
+  ],
+  "frontend developer": [
+    {
+      title: "Responsive product interface",
+      summary: "Create a polished multi-page frontend with reusable components, routing, state handling, and accessibility basics."
+    },
+    {
+      title: "Data-rich dashboard UI",
+      summary: "Design an interactive dashboard with charts, filters, and clear information hierarchy."
+    }
+  ],
+  "product manager": [
+    {
+      title: "Product strategy case study",
+      summary: "Document a problem statement, user research insights, prioritization framework, roadmap, and success metrics."
+    },
+    {
+      title: "Feature launch simulation",
+      summary: "Prepare PRD-style documentation, stakeholder trade-offs, and go-to-market notes for a new product feature."
+    }
+  ],
+  "business analyst": [
+    {
+      title: "Requirements and process mapping pack",
+      summary: "Create business requirements, workflow diagrams, stakeholder notes, and measurable outcome definitions."
+    },
+    {
+      title: "Operations improvement case",
+      summary: "Analyze an existing workflow, identify bottlenecks, and propose documented process improvements."
+    }
+  ]
+};
+
+function buildResumeSuggestions(career, requiredSkills, supportSkills, resources) {
+  const topRequired = requiredSkills.slice(0, 3).map((item) => item.skill.name);
+  const topSupport = supportSkills.slice(0, 2).map((item) => item.skill.name);
+  const resourceTypes = [...new Set(resources.map((resource) => resource.resource_type))];
+  const normalizedTitle = career.title.toLowerCase();
+
+  return [
+    `Write a resume summary that positions you for ${career.title} roles and highlights ${topRequired.join(", ")} as your strongest capabilities.`,
+    `Create an evidence-based skills section with tools, technologies, and methods you can actually demonstrate through coursework or projects.`,
+    topSupport.length
+      ? `Use support strengths like ${topSupport.join(" and ")} to show collaboration, communication, or business context alongside technical ability.`
+      : `Show proof of execution through projects, measurable outcomes, and role-relevant responsibilities rather than listing skills only.`,
+    resourceTypes.includes("certification")
+      ? `Add a certifications subsection only if you complete relevant credentials and can connect them to practical work.`
+      : `Prioritize portfolio evidence and measurable impact over certificates unless the target role specifically expects them.`,
+    normalizedTitle.includes("manager") || normalizedTitle.includes("analyst")
+      ? "Include bullet points that show problem framing, decision support, stakeholder communication, and real business impact."
+      : "Use action-oriented bullet points that show implementation depth, problem solving, and the technologies you used end to end."
+  ];
+}
+
+function buildProjectSuggestions(career, requiredSkills, resources) {
+  const normalizedTitle = career.title.toLowerCase();
+  const mappedProjects = projectSuggestionLibrary[normalizedTitle] || [
+    {
+      title: `${career.title} portfolio case study`,
+      summary: "Build one complete project that demonstrates the core workflow, tools, and decisions expected in this role."
+    },
+    {
+      title: `${career.title} practical showcase`,
+      summary: "Prepare a second smaller project that shows role-specific depth, clear outcomes, and communication of results."
+    }
+  ];
+
+  const topSkills = requiredSkills.slice(0, 3).map((item) => item.skill.name);
+  const resourceTypes = [...new Set(resources.map((resource) => resource.resource_type))];
+
+  return mappedProjects.map((project, index) => ({
+    ...project,
+    evidence:
+      index === 0
+        ? `Focus on proving ${topSkills.join(", ")} through one polished end-to-end build.`
+        : `Support it with portfolio evidence such as ${resourceTypes.join(", ") || "projects and documentation"} that strengthen credibility.`
+  }));
+}
+
 function normalizeError(error) {
   if (error instanceof Error) {
     return error.message;
@@ -121,6 +250,8 @@ export default function CareerDetailPage() {
     selectedResourceType === "all"
       ? careerResources
       : careerResources.filter((resource) => resource.resource_type === selectedResourceType);
+  const resumeSuggestions = buildResumeSuggestions(career, requiredSkills, supportSkills, careerResources);
+  const projectSuggestions = buildProjectSuggestions(career, requiredSkills, careerResources);
   const progressSummary = careerResources.reduce(
     (summary, resource) => {
       const status = resourceProgress[resource.id];
@@ -236,6 +367,41 @@ export default function CareerDetailPage() {
                 <p>This path is currently modeled with a compact core-skill profile.</p>
               </div>
             )}
+          </div>
+        </article>
+      </section>
+
+      <section className="section career-detail-grid">
+        <article className="roadmap-card suggestion-card">
+          <p className="section-label">Resume suggestions</p>
+          <p className="page-copy suggestion-copy">
+            Use these points to shape a stronger resume, LinkedIn summary, and interview story for this role.
+          </p>
+          <div className="suggestion-list">
+            {resumeSuggestions.map((point) => (
+              <div className="suggestion-item" key={point}>
+                <span className="suggestion-bullet">+</span>
+                <p>{point}</p>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <article className="roadmap-card suggestion-card">
+          <p className="section-label">Project ideas</p>
+          <p className="page-copy suggestion-copy">
+            Build 1 to 2 portfolio pieces like these to make your profile more convincing for {career.title} opportunities.
+          </p>
+          <div className="suggestion-list">
+            {projectSuggestions.map((project) => (
+              <div className="suggestion-item suggestion-item-project" key={project.title}>
+                <div>
+                  <strong>{project.title}</strong>
+                  <p>{project.summary}</p>
+                  <small>{project.evidence}</small>
+                </div>
+              </div>
+            ))}
           </div>
         </article>
       </section>
