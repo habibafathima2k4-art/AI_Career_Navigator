@@ -29,6 +29,14 @@ const workStyleOptions = [
   { value: "structured", label: "Structured" }
 ];
 
+const preferredDomainOptions = [
+  { value: "Data Science", label: "Data Science" },
+  { value: "Artificial Intelligence", label: "Artificial Intelligence" },
+  { value: "Software Engineering", label: "Software Engineering" },
+  { value: "Business Operations", label: "Business Operations" },
+  { value: "Business Intelligence", label: "Business Intelligence" }
+];
+
 const proficiencyOptions = [
   { value: "beginner", label: "Beginner" },
   { value: "intermediate", label: "Intermediate" },
@@ -60,7 +68,7 @@ export default function AssessmentPage() {
     interest_area: "data",
     education_level: "ug",
     experience_level: "beginner",
-    preferred_domain: "analytics",
+    preferred_domain: preferredDomainOptions[0].value,
     work_style: "analytical",
     goal_salary: "900000",
     selectedSkills: {}
@@ -226,12 +234,13 @@ export default function AssessmentPage() {
 
           <label className="field">
             <span>Preferred domain</span>
-            <input
-              name="preferred_domain"
-              value={form.preferred_domain}
-              onChange={handleFieldChange}
-              placeholder="analytics, product, ai"
-            />
+            <select name="preferred_domain" value={form.preferred_domain} onChange={handleFieldChange}>
+              {preferredDomainOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </label>
 
           <label className="field">
