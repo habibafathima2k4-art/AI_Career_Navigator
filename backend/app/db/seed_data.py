@@ -51,6 +51,21 @@ SKILLS = [
         "description": "Turn datasets into visual dashboards and exploratory reports.",
     },
     {
+        "name": "Jupyter Notebook",
+        "category": SkillCategoryEnum.TOOL,
+        "description": "Prototype analyses, experiments, and model workflows in an interactive notebook.",
+    },
+    {
+        "name": "Jira",
+        "category": SkillCategoryEnum.TOOL,
+        "description": "Track requirements, product work, and team delivery in structured workflows.",
+    },
+    {
+        "name": "Docker",
+        "category": SkillCategoryEnum.TOOL,
+        "description": "Package applications and services into portable containers for reliable deployment.",
+    },
+    {
         "name": "Data Visualization",
         "category": SkillCategoryEnum.DOMAIN,
         "description": "Present insights through charts, storytelling, and visual structure.",
@@ -126,6 +141,7 @@ CAREERS = [
             ("SQL", ImportanceLevelEnum.HIGH, True, 3),
             ("Excel", ImportanceLevelEnum.HIGH, True, 3),
             ("Statistics", ImportanceLevelEnum.MEDIUM, True, 2),
+            ("Jupyter Notebook", ImportanceLevelEnum.LOW, False, 1),
             ("Communication", ImportanceLevelEnum.MEDIUM, False, 1),
         ],
         "resources": [
@@ -185,6 +201,8 @@ CAREERS = [
             ("Python", ImportanceLevelEnum.HIGH, True, 3),
             ("Machine Learning", ImportanceLevelEnum.HIGH, True, 3),
             ("Statistics", ImportanceLevelEnum.HIGH, True, 2),
+            ("Jupyter Notebook", ImportanceLevelEnum.MEDIUM, False, 1),
+            ("Docker", ImportanceLevelEnum.MEDIUM, False, 1),
             ("Communication", ImportanceLevelEnum.MEDIUM, False, 1),
         ],
         "resources": [
@@ -243,6 +261,7 @@ CAREERS = [
         "skills": [
             ("Communication", ImportanceLevelEnum.HIGH, True, 3),
             ("Product Thinking", ImportanceLevelEnum.HIGH, True, 3),
+            ("Jira", ImportanceLevelEnum.MEDIUM, False, 1),
             ("Excel", ImportanceLevelEnum.MEDIUM, False, 1),
         ],
         "resources": [
@@ -296,6 +315,7 @@ CAREERS = [
             ("Excel", ImportanceLevelEnum.HIGH, True, 3),
             ("Communication", ImportanceLevelEnum.HIGH, True, 2),
             ("Business Analysis", ImportanceLevelEnum.HIGH, True, 3),
+            ("Jira", ImportanceLevelEnum.MEDIUM, False, 1),
             ("Problem Solving", ImportanceLevelEnum.MEDIUM, False, 1),
         ],
         "resources": [
@@ -356,6 +376,7 @@ CAREERS = [
             ("Machine Learning", ImportanceLevelEnum.HIGH, True, 3),
             ("Statistics", ImportanceLevelEnum.HIGH, True, 3),
             ("SQL", ImportanceLevelEnum.MEDIUM, True, 2),
+            ("Jupyter Notebook", ImportanceLevelEnum.MEDIUM, False, 1),
             ("Data Visualization", ImportanceLevelEnum.MEDIUM, False, 1),
         ],
         "resources": [
@@ -475,6 +496,7 @@ CAREERS = [
             ("Python", ImportanceLevelEnum.HIGH, True, 3),
             ("API Development", ImportanceLevelEnum.HIGH, True, 3),
             ("SQL", ImportanceLevelEnum.HIGH, True, 2),
+            ("Docker", ImportanceLevelEnum.MEDIUM, False, 1),
             ("Git", ImportanceLevelEnum.MEDIUM, True, 2),
             ("Cloud Basics", ImportanceLevelEnum.MEDIUM, False, 1),
         ],
