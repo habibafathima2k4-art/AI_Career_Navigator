@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     api_prefix: str = "/api"
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 60 * 24
-    auto_init_on_startup: bool = False
+    auto_init_on_startup: bool = True
     database_url: str = Field(
         default="postgresql+psycopg://postgres:postgres@localhost:5432/ai_career_navigator"
     )
